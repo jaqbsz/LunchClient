@@ -8,8 +8,8 @@ Window
     id: mainWindow
     visible: true
 
-    width: 500
-    height: 500
+    minimumHeight: 500
+    minimumWidth: 500
 
     Rectangle
     {

@@ -6,5 +6,8 @@
         <file>images/settings.png</file>
         <file>QmlObj/ButtonsBar.qml</file>
         <file>QmlObj/MainView.qml</file>
+        <file>images/connected.png</file>
+        <file>images/notconnected.png</file>
+        <file>QmlObj/ZButton.qml</file>
     </qresource>
 </RCC>
