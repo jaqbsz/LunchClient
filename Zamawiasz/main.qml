@@ -29,6 +29,13 @@ Window
       id: buttonsBar
       bb_width: 60
       anchors.top: topBar.bottom
+
+      onBb_buttPressed:
+        {
+          console.log(bu_name)
+          mainView.mv_changed(bu_name)
+        }
+
     }
 
     MainView

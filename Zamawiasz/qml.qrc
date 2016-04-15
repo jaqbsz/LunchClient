@@ -9,5 +9,9 @@
         <file>images/connected.png</file>
         <file>images/notconnected.png</file>
         <file>QmlObj/ZButton.qml</file>
+        <file>QmlObj/OrdersView.qml</file>
+        <file>QmlObj/UsersView.qml</file>
+        <file>QmlObj/StatsView.qml</file>
+        <file>QmlObj/SettingsView.qml</file>
     </qresource>
 </RCC>

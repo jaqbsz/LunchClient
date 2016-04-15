@@ -5,8 +5,21 @@ Item
   id: buttonsBar
 
   property alias bb_width: buttonsBar.width
+  signal bb_buttPressed(string bu_name)
 
   anchors { left: parent.left; top: parent.top; bottom: parent.bottom; margins: 3 }
+
+  function sendUnPressed()
+  {
+    var res = false
+
+    if ( ordersButt.pressed ) res = true
+    else if ( usersButt.pressed ) res = true
+    else if ( statsButt.pressed ) res = true
+    else if ( settingsButt.pressed ) res = true
+
+    if ( !res ) buttonsBar.bb_buttPressed("None")
+  }
 
   Rectangle
   {
@@ -25,7 +38,9 @@ Item
           usersButt.bu_unpressed()
           statsButt.bu_unpressed()
           settingsButt.bu_unpressed()
+          buttonsBar.bb_buttPressed(bu_text)
         }
+      onBu_unpressed: sendUnPressed()
     }
 
     ZButton
@@ -39,7 +54,9 @@ Item
           ordersButt.bu_unpressed()
           statsButt.bu_unpressed()
           settingsButt.bu_unpressed()
+          buttonsBar.bb_buttPressed(bu_text)
         }
+      onBu_unpressed: sendUnPressed()
     }
 
     ZButton
@@ -53,7 +70,9 @@ Item
           ordersButt.bu_unpressed()
           usersButt.bu_unpressed()
           settingsButt.bu_unpressed()
+          buttonsBar.bb_buttPressed(bu_text)
         }
+      onBu_unpressed: sendUnPressed()
     }
 
     ZButton
@@ -66,7 +85,9 @@ Item
           ordersButt.bu_unpressed()
           usersButt.bu_unpressed()
           statsButt.bu_unpressed()
+          buttonsBar.bb_buttPressed(bu_text)
         }
+      onBu_unpressed: sendUnPressed()
     }
   }
 }

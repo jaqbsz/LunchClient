@@ -8,6 +8,7 @@ Item
   property alias bu_color: buttonRect.color
   signal bu_pressed()
   signal bu_unpressed()
+  property bool pressed
 
   anchors { left: parent.left; right: parent.right }
   height: 60
@@ -24,11 +25,13 @@ Item
     State
     {
       name: "pressed"
+      PropertyChanges { target: buttonItem; pressed: true }
       PropertyChanges { target: buttonRect; color: "#503a5a"; border.color: "#503a5a" }
     },
     State
     {
       name: "normal"
+      PropertyChanges { target: buttonItem; pressed: false }
       PropertyChanges { target: buttonRect; color: "#755a5a" }
     }
   ]
@@ -41,8 +44,6 @@ Item
     radius: 2
     border.width: 1
     border.color: "#d5bdbd"
-
-    state: "normal"
 
     Text
     {
@@ -60,9 +61,15 @@ Item
       anchors.fill: parent
       hoverEnabled: true
       onClicked:
+          if (buttonItem.state != "pressed")
           {
-            buttonItem.bu_pressed();
-            buttonItem.state != "pressed" ? buttonItem.state = "pressed" : buttonItem.state = "normal"
+            buttonItem.state = "pressed";
+            buttonItem.bu_pressed()
+          }
+          else
+          {
+            buttonItem.state = "normal"
+            buttonItem.bu_unpressed()
           }
       onHoveredChanged:
           if ( buttonItem.state != "pressed" )
