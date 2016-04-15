@@ -7,6 +7,7 @@ Item
 
   anchors { top: parent.top; left: parent.left; bottom: parent.bottom; right: parent.right; margins: 3 }
 
+  /// set default state for the object
   state: "None"
 
   /// set state on button pressed
