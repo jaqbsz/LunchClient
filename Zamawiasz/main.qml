@@ -4,7 +4,7 @@ import QtQuick.Window 2.2
 
 import "QmlObj"
 
-ApplicationWindow
+Window
 {
     id: mainWindow
     visible: true

@@ -4,6 +4,7 @@ Item
 {
   id: mainView
   signal mv_changed(string name)
+  property string nview_dddate: "no data"
 
   anchors { top: parent.top; left: parent.left; bottom: parent.bottom; right: parent.right; margins: 3 }
 
@@ -68,6 +69,12 @@ Item
     anchors.fill: parent
     color: "#483c3c"
     radius: 2
+    Text
+    {
+      text: "Danie dnia:"; color: "white"
+      anchors { left: parent.left; top: parent.top; margins: 30; }
+      font.family: "Verdana"; font.pixelSize: 16
+    }
   }
 
   OrdersView

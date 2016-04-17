@@ -26,7 +26,7 @@ Item
     {
       name: "pressed"
       PropertyChanges { target: buttonItem; pressed: true }
-      PropertyChanges { target: buttonRect; color: "#503a5a"; border.color: "#503a5a" }
+      PropertyChanges { target: buttonRect; color: "#503a5a"; radius: 10 }
     },
     State
     {
