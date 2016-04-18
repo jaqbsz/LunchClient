@@ -69,11 +69,15 @@ Item
     anchors.fill: parent
     color: "#483c3c"
     radius: 2
-    Text
+
+    Image
     {
-      text: "Danie dnia:"; color: "white"
-      anchors { left: parent.left; top: parent.top; margins: 30; }
-      font.family: "Verdana"; font.pixelSize: 16
+      id: tbdIcon
+      anchors.centerIn: parent
+      width: 200
+      height: 200
+      source: "../images/under_construction.jpg"
+      opacity: 0.5
     }
   }
 

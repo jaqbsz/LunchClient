@@ -57,9 +57,9 @@ Item
 
     MouseArea
     {
-      id: buttonMA
-      anchors.fill: parent
-      hoverEnabled: true
+        id: buttonMA
+        anchors.fill: parent
+        hoverEnabled: true
       onClicked:
           if (buttonItem.state != "pressed")
           {

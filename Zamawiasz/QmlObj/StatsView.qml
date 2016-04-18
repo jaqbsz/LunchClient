@@ -13,5 +13,16 @@ Item
     anchors.fill: parent
     color: "purple"
     radius: 10
+
+    Image
+    {
+      id: tbdIcon
+      anchors.centerIn: parent
+      width: 200
+      height: 200
+      source: "../images/under_construction.jpg"
+      opacity: 0.5
+    }
+
   }
 }

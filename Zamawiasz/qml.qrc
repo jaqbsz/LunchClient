@@ -14,5 +14,6 @@
         <file>QmlObj/StatsView.qml</file>
         <file>QmlObj/SettingsView.qml</file>
         <file>images/add.png</file>
+        <file>images/under_construction.jpg</file>
     </qresource>
 </RCC>
