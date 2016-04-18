@@ -290,11 +290,13 @@ Item
           TextInput
           {
             id: whoInput
+            focus: true
             anchors.fill: parent
             anchors.leftMargin: 10
             verticalAlignment: TextInput.AlignVCenter
             color:"black"
             font { family: "Arial"; pixelSize: 12; }
+            KeyNavigation.tab: whatInput
           }
         }
       }
@@ -326,6 +328,7 @@ Item
             verticalAlignment: TextInput.AlignVCenter
             color:"black"
             font { family: "Arial"; pixelSize: 12; }
+            KeyNavigation.tab: priceInput
           }
         }
       }
@@ -357,6 +360,7 @@ Item
             verticalAlignment: TextInput.AlignVCenter
             color:"black"
             font { family: "Arial"; pixelSize: 12; }
+            KeyNavigation.tab: buttOK
           }
         }
       }
@@ -367,11 +371,14 @@ Item
 
         Button
         {
+          id: buttOK
           text: "Ok"
+          KeyNavigation.tab: buttCancel
         }
 
         Button
         {
+          id: buttCancel
           text: "Cancel"
           onClicked:
           {
@@ -380,6 +387,7 @@ Item
             priceInput.text = ""
             fillRect.state = "normal"
           }
+          KeyNavigation.tab: whoInput
         }
       }
     }
