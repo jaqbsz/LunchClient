@@ -5,6 +5,7 @@ Item
   id: topBar
 
   signal tb_connect()
+  signal tb_disconnect()
   signal tb_connected(bool state)
 
   property alias tb_height: topBar.height
@@ -79,7 +80,13 @@ Item
           id: connectedMA
           anchors.fill: parent
           hoverEnabled: true
-          onClicked: topBar.tb_connected(true)
+          onClicked:
+          {
+            if ( connectedItem.state == "connected" )
+              topBar.tb_disconnect()
+            else if ( connectedItem.state == "notconnected" )
+              topBar.tb_connect()
+          }
         }
 
         states:

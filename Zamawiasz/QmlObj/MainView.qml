@@ -99,5 +99,6 @@ Item
   SettingsView
   {
     id: settingsView
+    objectName: "settings"
   }
 }

@@ -1,9 +1,11 @@
 TEMPLATE = app
 
 QT += qml quick
+QT += network
 CONFIG += c++11
 
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    srvconnection.cpp
 
 RESOURCES += qml.qrc
 
@@ -12,3 +14,9 @@ QML_IMPORT_PATH =
 
 # Default rules for deployment.
 include(deployment.pri)
+
+HEADERS += \
+    srvconnection.h
+
+
+RC_ICONS = zamawiasz.ico

@@ -12,6 +12,12 @@ Window
     minimumHeight: 500
     minimumWidth: 500
 
+    function signalConnected(state)
+    {
+      console.log("Connected - "+state)
+      topBar.tb_connected(state)
+    }
+
     Rectangle
     {
       id: mainRect
@@ -22,6 +28,7 @@ Window
     TopBar
     {
       id: topBar
+      objectName: "topBar"
       tb_height: 60
     }
 

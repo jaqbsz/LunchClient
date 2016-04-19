@@ -4,6 +4,8 @@ Item
 {
   id: settingsView
   property alias sev_visible: settingsView.visible
+  property string hostname: "127.0.0.1"
+  property int portnr: 9876
 
   anchors.fill: parent
 
@@ -42,6 +44,7 @@ Item
           TextInput
           {
             id: ipaddrInput
+            text: settingsView.hostname
             anchors.fill: parent
             anchors.leftMargin: 10
             verticalAlignment: TextInput.AlignVCenter
@@ -49,7 +52,7 @@ Item
             font { family: "Arial"; pixelSize: 10; }
             selectByMouse: true
             KeyNavigation.tab: ipportInput
-            onAccepted: { ipaddrInput.focus = false; ipportInput.focus = true }
+            onAccepted: { ipaddrInput.focus = false; ipportInput.focus = true; settingsView.hostname = ipaddrInput.text }
           }
         }
       }
@@ -76,6 +79,7 @@ Item
           TextInput
           {
             id: ipportInput
+            text: settingsView.portnr
             anchors.fill: parent
             anchors.leftMargin: 10
             verticalAlignment: TextInput.AlignVCenter
@@ -83,14 +87,10 @@ Item
             font { family: "Arial"; pixelSize: 10; }
             selectByMouse: true
             KeyNavigation.tab: ipaddrInput
-            onAccepted: ipportInput.focus = false
+            onAccepted: { ipportInput.focus = false; settingsView.portnr = ipportInput.text }
           }
         }
       }
     }
-
-
-
-
   }
 }
