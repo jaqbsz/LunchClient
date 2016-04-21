@@ -203,9 +203,9 @@ Item
             {
               if ( fillRect.state == "normal" )
               {
-                whoInput.text = ordersModel.get(styleData.row).u_initials
-                whatInput.text = ordersModel.get(styleData.row).menu_item
-                priceInput.text = ordersModel.get(styleData.row).price
+                whoInput.text = ordersModel.getInitials(styleData.row)
+                whatInput.text = ordersModel.getMenuItem(styleData.row)
+                priceInput.text = ordersModel.getPrice(styleData.row)
                 fillRect.state = "active"
               }
             }
@@ -224,30 +224,6 @@ Item
       }
 
       model: ordersModel
-    }
-
-    ListModel
-    {
-      id: ordersModel
-
-      ListElement
-      {
-        u_initials: "JS"
-        menu_item: "23"
-        price: "13"
-      }
-      ListElement
-      {
-        u_initials: "TST1"
-        menu_item: "21"
-        price: "13"
-      }
-      ListElement
-      {
-        u_initials: "TST2"
-        menu_item: "22"
-        price: "13"
-      }
     }
   }
 

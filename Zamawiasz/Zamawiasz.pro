@@ -5,7 +5,8 @@ QT += network
 CONFIG += c++11
 
 SOURCES += main.cpp \
-    srvconnection.cpp
+    srvconnection.cpp \
+    ordersmodel.cpp
 
 RESOURCES += qml.qrc
 
@@ -16,7 +17,9 @@ QML_IMPORT_PATH =
 include(deployment.pri)
 
 HEADERS += \
-    srvconnection.h
+    srvconnection.h \
+    order.h \
+    ordersmodel.h
 
 
 RC_ICONS = zamawiasz.ico

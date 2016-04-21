@@ -43,7 +43,6 @@ Window
           console.log(bu_name)
           mainView.mv_changed(bu_name)
         }
-
     }
 
     MainView
@@ -52,5 +51,4 @@ Window
       anchors.top: topBar.bottom
       anchors.left: buttonsBar.right
     }
-
 }
