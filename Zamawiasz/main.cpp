@@ -15,9 +15,9 @@ int main(int argc, char *argv[])
   QGuiApplication app(argc, argv);
 
   OrdersModel model;
-  model.addOrder(Order("Wolf", "Medium", "aa"));
-  model.addOrder(Order("Polar bear", "Large", "bb"));
-  model.addOrder(Order("Quoll", "Small", "cc"));
+  model.addOrder(Order(0, "Wolf", "Medium", "aa"));
+  model.addOrder(Order(1, "Polar bear", "Large", "bb"));
+  model.addOrder(Order(2, "Quoll", "Small", "cc"));
 
   QQmlApplicationEngine engine;
 

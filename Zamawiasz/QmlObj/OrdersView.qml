@@ -49,10 +49,20 @@ Item
           whatInput.text = ""
           priceInput.text = ""
 
+          ordersTable.selectedrow = -1
+
           if ( fillRect.state == "active" )
+          {
+            console.log("Hide config window");
+            ordersTable.addnewitem = false
             fillRect.state = "normal"
+          }
           else if ( fillRect.state == "normal" )
+          {
+            console.log("Add new item");
+            ordersTable.addnewitem = true
             fillRect.state = "active"
+          }
         }
       }
 
@@ -95,6 +105,9 @@ Item
       alternatingRowColors: false
       enabled: true
 
+      property bool addnewitem: false
+      property int selectedrow: -1
+
       headerDelegate:
           Item
           {
@@ -120,6 +133,15 @@ Item
 
       rowDelegate: rowDelegate
       itemDelegate: itemDelegate
+
+      TableViewColumn
+      {
+        role: "o_id"
+        title: "Id"
+        resizable: false
+        width: 20
+        horizontalAlignment: Text.AlignHCenter
+      }
 
       TableViewColumn
       {
@@ -199,6 +221,8 @@ Item
             id: rowMouseA
             hoverEnabled: true
             anchors.fill: parent
+            acceptedButtons: Qt.LeftButton | Qt.RightButton
+
             onDoubleClicked:
             {
               if ( fillRect.state == "normal" )
@@ -206,9 +230,21 @@ Item
                 whoInput.text = ordersModel.getInitials(styleData.row)
                 whatInput.text = ordersModel.getMenuItem(styleData.row)
                 priceInput.text = ordersModel.getPrice(styleData.row)
+                ordersTable.addnewitem = false
+                ordersTable.selectedrow = styleData.row
                 fillRect.state = "active"
               }
             }
+
+            /// onClicked does not allow to check for pressedButtons
+            /// http://stackoverflow.com/questions/22443641/qml-right-click-not-detected-in-mousearea
+            onPressed:
+                if(pressedButtons & Qt.RightButton)
+                {
+                  /// TODO add menu popup!!!
+                  console.log("Delete order: " + styleData.row )
+                  ordersModel.deleteOrder(styleData.row)
+                }
           }
 
           states:
@@ -349,6 +385,25 @@ Item
         {
           id: buttOK
           text: "Ok"
+          onClicked:
+          {
+            console.log("Item ... ")
+
+            if (ordersTable.addnewitem)
+            {
+              console.log("add")
+              ordersModel.addOrder(whoInput.text, whatInput.text, priceInput.text )
+            }
+            else
+            {
+              console.log("modify")
+              ordersModel.modifyOrder(ordersTable.selectedrow, whoInput.text, whatInput.text, priceInput.text )
+            }
+
+            ordersTable.selectedrow = -1
+            ordersTable.addnewitem = false;
+            fillRect.state = "normal"
+          }
           KeyNavigation.tab: buttCancel
         }
 
@@ -361,6 +416,8 @@ Item
             whoInput.text = ""
             whatInput.text = ""
             priceInput.text = ""
+            ordersTable.selectedrow = -1
+            ordersTable.addnewitem = false;
             fillRect.state = "normal"
           }
           KeyNavigation.tab: whoInput
