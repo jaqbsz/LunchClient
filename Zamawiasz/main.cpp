@@ -7,6 +7,7 @@
 
 #include "ordersmodel.h"
 #include "order.h"
+#include "src/clientrpc.h"
 
 int main(int argc, char *argv[])
 {
@@ -14,7 +15,8 @@ int main(int argc, char *argv[])
 
   QGuiApplication app(argc, argv);
 
-  OrdersModel model;
+  ClientRpc rpc;
+  OrdersModel model(rpc);
 
   // test only
   model.addOrder(Order(0, "Wolf", "Medium", "aa"));
@@ -41,6 +43,8 @@ int main(int argc, char *argv[])
                    &connection,   SLOT(qmlDisconnect()));
   QObject::connect(&connection,   SIGNAL(qmlConnected(QVariant)),
                    rootObject,    SLOT(signalConnected(QVariant)));
+  QObject::connect(&rpc,          SIGNAL(sig_sendRequest(QByteArray)),
+                   &connection,   SLOT(sendData(QByteArray)));
 
   return app.exec();
 }

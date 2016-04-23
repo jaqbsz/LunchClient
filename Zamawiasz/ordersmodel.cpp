@@ -1,8 +1,9 @@
 #include "ordersmodel.h"
 #include <QDebug>
 
-OrdersModel::OrdersModel(QObject *parent)
-    : QAbstractTableModel(parent)
+OrdersModel::OrdersModel(ClientRpc &rpc, QObject *parent) :
+  QAbstractTableModel(parent),
+  m_rpc(rpc)
 {
 }
 
@@ -33,6 +34,12 @@ void OrdersModel::addOrder(const QString initials, const QString menuItem, const
 
   m_orders << order;
   endInsertRows();
+
+  QJsonObject params = m_rpc.getParams(M_ADD_ORDER);
+  params["MENU_ITEM"] = menuItem;
+  params["PRICE"] = price;
+  params["U_ID"] = 0;   //TODO pass real user id
+  m_rpc.sendMethod(M_ADD_ORDER, QJsonValue(params));
 }
 
 void OrdersModel::modifyOrder(const int o_id, const QString initials, const QString menuItem, const QString price)

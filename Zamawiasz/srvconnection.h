@@ -25,7 +25,7 @@ class SrvConnection : public QObject
 
     ConnState state() { return m_state; }
 
-    qint64 sendData( const QByteArray &outData );
+    //qint64 sendData( const QByteArray &outData );
 
   signals:
       void qmlConnected(QVariant state);
@@ -35,6 +35,7 @@ class SrvConnection : public QObject
       void disconnected();
       void bytesWritten(qint64 bytes);
       void readyRead();
+      void sendData( const QByteArray &outData );
 
       void qmlConnect();
       void qmlDisconnect();

@@ -6,7 +6,10 @@ CONFIG += c++11
 
 SOURCES += main.cpp \
     srvconnection.cpp \
-    ordersmodel.cpp
+    ordersmodel.cpp \
+    src/Lrpc.cpp \
+    src/LRpcMethod.cpp \
+    src/clientrpc.cpp
 
 RESOURCES += qml.qrc
 
@@ -19,7 +22,10 @@ include(deployment.pri)
 HEADERS += \
     srvconnection.h \
     order.h \
-    ordersmodel.h
+    ordersmodel.h \
+    src/Lrpc.h \
+    src/LRpcMethod.h \
+    src/clientrpc.h
 
 
 RC_ICONS = zamawiasz.ico

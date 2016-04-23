@@ -5,6 +5,7 @@
 #include <QStringList>
 
 #include "order.h"
+#include "src/clientrpc.h"
 
 class OrdersModel : public QAbstractTableModel
 {
@@ -20,7 +21,7 @@ class OrdersModel : public QAbstractTableModel
       roleCnt = priceRole - Qt::UserRole
     };
 
-    OrdersModel(QObject *parent = 0);
+    OrdersModel(ClientRpc &rpc, QObject *parent = 0);
     void addOrder(const Order &order);
     void addOrder(int o_id, const QString initials, const QString menuItem, const QString price);
 
@@ -41,6 +42,7 @@ class OrdersModel : public QAbstractTableModel
     QHash<int, QByteArray> roleNames() const;
 
   private:
+    ClientRpc &m_rpc;
     QList<Order> m_orders;
 };
 

@@ -34,10 +34,10 @@ void SrvConnection::doConnect(QString hostname, int portnr)
     m_state = CONNECTED;
 }
 
-qint64 SrvConnection::sendData(const QByteArray &outData)
-{
-  return m_socket->write(outData);
-}
+//qint64 SrvConnection::sendData(const QByteArray &outData)
+//{
+//  return m_socket->write(outData);
+//}
 
 void SrvConnection::connected()
 {
@@ -62,6 +62,11 @@ void SrvConnection::readyRead()
 
   // read the data from the socket
   qDebug() << m_socket->readAll();
+}
+
+void SrvConnection::sendData(const QByteArray &outData)
+{
+  m_socket->write(outData);
 }
 
 void SrvConnection::qmlConnect()
