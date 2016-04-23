@@ -341,6 +341,7 @@ Item
             color:"black"
             font { family: "Arial"; pixelSize: 12; }
             KeyNavigation.tab: priceInput
+            validator: IntValidator{bottom: 0; top: 50;}
           }
         }
       }
@@ -373,6 +374,7 @@ Item
             color:"black"
             font { family: "Arial"; pixelSize: 12; }
             KeyNavigation.tab: buttOK
+            validator: IntValidator{bottom: 0; top: 1000;}
           }
         }
       }

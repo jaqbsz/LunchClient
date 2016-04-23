@@ -37,12 +37,16 @@ int main(int argc, char *argv[])
 
   SrvConnection connection(qmlObj_settings);
 
+  // socket - connect
   QObject::connect(qmlObj_topBar, SIGNAL(tb_connect()),
                    &connection,   SLOT(qmlConnect()));
+  // socket - disconnect
   QObject::connect(qmlObj_topBar, SIGNAL(tb_disconnect()),
                    &connection,   SLOT(qmlDisconnect()));
+  // socket - state changed
   QObject::connect(&connection,   SIGNAL(qmlConnected(QVariant)),
                    rootObject,    SLOT(signalConnected(QVariant)));
+  // rpc - send data
   QObject::connect(&rpc,          SIGNAL(sig_sendRequest(QByteArray)),
                    &connection,   SLOT(sendData(QByteArray)));
 

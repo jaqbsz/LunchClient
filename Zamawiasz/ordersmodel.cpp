@@ -36,9 +36,9 @@ void OrdersModel::addOrder(const QString initials, const QString menuItem, const
   endInsertRows();
 
   QJsonObject params = m_rpc.getParams(M_ADD_ORDER);
-  params["MENU_ITEM"] = menuItem;
-  params["PRICE"] = price;
-  params["U_ID"] = 0;   //TODO pass real user id
+  params["MENU_ITEM"] = menuItem.toInt();
+  params["PRICE"] = price.toInt();
+  params["U_INITIALS"] = initials;
   m_rpc.sendMethod(M_ADD_ORDER, QJsonValue(params));
 }
 

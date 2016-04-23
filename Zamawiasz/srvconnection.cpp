@@ -61,12 +61,17 @@ void SrvConnection::readyRead()
   qDebug() << "reading...";
 
   // read the data from the socket
-  qDebug() << m_socket->readAll();
+  QByteArray data = m_socket->readAll();
+  qDebug() << data;
 }
 
 void SrvConnection::sendData(const QByteArray &outData)
 {
-  m_socket->write(outData);
+  if ( m_state == CONNECTED )
+  {
+    m_socket->write(outData);
+    m_socket->flush();
+  }
 }
 
 void SrvConnection::qmlConnect()
