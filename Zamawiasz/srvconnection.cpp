@@ -4,30 +4,39 @@
 
 SrvConnection::SrvConnection(const QObject * qmlObjSettings, QObject *parent) :
     QObject(parent),
-    qmlObjSettings(qmlObjSettings)
+    qmlObjSettings(qmlObjSettings),
+    m_state(UNKNOWN)
 {
 }
 
 void SrvConnection::doConnect(QString hostname, int portnr)
 {
-  socket = new QTcpSocket(this);
+  m_socket = new QTcpSocket(this);
 
-  connect(socket, SIGNAL(connected()),this, SLOT(connected()));
-  connect(socket, SIGNAL(disconnected()),this, SLOT(disconnected()));
-  connect(socket, SIGNAL(bytesWritten(qint64)),this, SLOT(bytesWritten(qint64)));
-  connect(socket, SIGNAL(readyRead()),this, SLOT(readyRead()));
+  connect(m_socket, SIGNAL(connected()),this, SLOT(connected()));
+  connect(m_socket, SIGNAL(disconnected()),this, SLOT(disconnected()));
+  connect(m_socket, SIGNAL(bytesWritten(qint64)),this, SLOT(bytesWritten(qint64)));
+  connect(m_socket, SIGNAL(readyRead()),this, SLOT(readyRead()));
 
   qDebug() << "connecting with " + hostname;
 
   // this is not blocking call
-  socket->connectToHost(hostname, portnr);
+  m_socket->connectToHost(hostname, portnr);
 
   // we need to wait...
   // this is blocking function!!!
-  if(!socket->waitForConnected(1000))
+  if(!m_socket->waitForConnected(1000))
   {
-    qDebug() << "Error: " << socket->errorString();
+    qDebug() << "Error: " << m_socket->errorString();
+    m_state = DISCONNECTED;
   }
+  else
+    m_state = CONNECTED;
+}
+
+qint64 SrvConnection::sendData(const QByteArray &outData)
+{
+  return m_socket->write(outData);
 }
 
 void SrvConnection::connected()
@@ -52,7 +61,7 @@ void SrvConnection::readyRead()
   qDebug() << "reading...";
 
   // read the data from the socket
-  qDebug() << socket->readAll();
+  qDebug() << m_socket->readAll();
 }
 
 void SrvConnection::qmlConnect()
@@ -68,5 +77,5 @@ void SrvConnection::qmlConnect()
 void SrvConnection::qmlDisconnect()
 {
   qDebug() << "Disconnect...";
-  socket->disconnectFromHost();
+  m_socket->disconnectFromHost();
 }

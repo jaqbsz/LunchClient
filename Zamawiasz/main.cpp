@@ -15,9 +15,12 @@ int main(int argc, char *argv[])
   QGuiApplication app(argc, argv);
 
   OrdersModel model;
+
+  // test only
   model.addOrder(Order(0, "Wolf", "Medium", "aa"));
   model.addOrder(Order(1, "Polar bear", "Large", "bb"));
   model.addOrder(Order(2, "Quoll", "Small", "cc"));
+  //
 
   QQmlApplicationEngine engine;
 
@@ -29,8 +32,6 @@ int main(int argc, char *argv[])
   QObject *rootObject = engine.rootObjects().first();
   QObject *qmlObj_topBar = rootObject->findChild<QObject*>("topBar");
   QObject *qmlObj_settings = rootObject->findChild<QObject*>("settings");
-
-
 
   SrvConnection connection(qmlObj_settings);
 
