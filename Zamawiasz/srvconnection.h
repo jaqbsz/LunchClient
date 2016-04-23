@@ -29,6 +29,7 @@ class SrvConnection : public QObject
 
   signals:
       void qmlConnected(QVariant state);
+      void sig_newResponse(QByteArray inData);
 
   public slots:
       void connected();

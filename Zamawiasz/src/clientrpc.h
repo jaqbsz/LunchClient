@@ -17,9 +17,11 @@ class ClientRpc : public QObject, public LRpc
     void sig_sendRequest(QByteArray outData);
 
   public slots:
+    void slot_readResponse(QByteArray inData);
 
   private:
     int m_frameid;
+    LRpcMethod m_lastrequest;
 };
 
 #endif // CLIENTRPC_H

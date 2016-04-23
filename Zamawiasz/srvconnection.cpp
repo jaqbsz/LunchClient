@@ -63,6 +63,8 @@ void SrvConnection::readyRead()
   // read the data from the socket
   QByteArray data = m_socket->readAll();
   qDebug() << data;
+
+  emit sig_newResponse(data);
 }
 
 void SrvConnection::sendData(const QByteArray &outData)

@@ -49,6 +49,9 @@ int main(int argc, char *argv[])
   // rpc - send data
   QObject::connect(&rpc,          SIGNAL(sig_sendRequest(QByteArray)),
                    &connection,   SLOT(sendData(QByteArray)));
+  // socket - data received
+  QObject::connect(&connection,   SIGNAL(sig_newResponse(QByteArray)),
+                   &rpc,          SLOT(slot_readResponse(QByteArray)));
 
   return app.exec();
 }
