@@ -20,6 +20,7 @@ class LRpc
 
     QJsonObject getErrorObj   (const char * err_name);
     QJsonObject getResultObj  (const QString &res_name);
+    QJsonObject getResultObj  (const QJsonObject &frameObj);
     QJsonObject getResultObj  (const LRpcMethod &lrpcMeth);
     QJsonObject getMethodObj  (const T_RPCMETHODID methodid);
     QJsonValue  getResultValue(const QString &res_name);

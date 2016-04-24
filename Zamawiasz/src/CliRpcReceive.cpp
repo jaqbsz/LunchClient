@@ -22,5 +22,44 @@ void CliRpcReceive::readResponse(QByteArray inData)
     QJsonObject jresponse = in_json.object();
 
 
+
+    switch ( m_lastrequest.getId() )
+    {
+      case M_LIST_USERS:
+        break;
+
+      case M_ADD_USER:
+        break;
+
+      case M_LIST_ORDERS:
+        break;
+
+      case M_DELETE_USER:
+        break;
+
+      case M_MODIFY_USER:
+        break;
+
+      case M_ADD_ORDER:
+        {
+          QJsonObject rsp = getResultObj(jresponse);
+          m_om->addOrder( rsp["O_ID"].toInt(),
+                          rsp["U_INITIALS"].toString(),
+          QString::number(rsp["MENU_ITEM"].toInt()),
+          QString::number(rsp["PRICE"].toInt()));
+        }
+        break;
+
+      case M_DELETE_ORDER:
+        break;
+
+      case M_MODIFY_ORDER:
+        break;
+
+      default:
+        qDebug() << "error - invalid request";
+        break;
+    }
+
   }
 }

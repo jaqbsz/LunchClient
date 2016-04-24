@@ -61,6 +61,15 @@ QJsonObject LRpc::getResultObj(const QString & res_name)
 //* getResultObj()
 //*
 //**************************************************************************************
+QJsonObject LRpc::getResultObj(const QJsonObject &frameObj)
+{
+  return frameObj.value("result").toObject();
+}
+
+//**************************************************************************************
+//* getResultObj()
+//*
+//**************************************************************************************
 QJsonObject LRpc::getResultObj(const LRpcMethod &lrpcMeth)
 {
   //TODO throw exceptions

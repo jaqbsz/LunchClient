@@ -8,8 +8,10 @@ CliRpcSend::CliRpcSend() :
 {
 }
 
-void CliRpcSend::sendMethod(const T_RPCMETHODID methodid, QJsonValue params)
+bool CliRpcSend::sendMethod(const T_RPCMETHODID methodid, QJsonValue params)
 {
+  bool res = false;
+
   qDebug() << "Send prepared data.";
 
   QJsonDocument out_json;
@@ -33,6 +35,8 @@ void CliRpcSend::sendMethod(const T_RPCMETHODID methodid, QJsonValue params)
 
   if ( m_conn )
   {
-    m_conn->sendData(outData);
+    res = m_conn->sendData(outData);
   }
+
+  return res;
 }

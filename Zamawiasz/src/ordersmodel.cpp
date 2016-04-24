@@ -27,18 +27,18 @@ void OrdersModel::addOrder(const QString initials, const QString menuItem, const
 {
   qDebug() << "addOrder (QML)";
 
-  beginInsertRows(QModelIndex(), rowCount(), rowCount());
-
-  const Order order(m_orders.count(), initials, menuItem, price);
-
-  m_orders << order;
-  endInsertRows();
-
   QJsonObject params = m_rpc->getParams(M_ADD_ORDER);
   params["MENU_ITEM"] = menuItem.toInt();
   params["PRICE"] = price.toInt();
   params["U_INITIALS"] = initials;
-  m_rpc->sendMethod(M_ADD_ORDER, QJsonValue(params));
+
+  if ( !m_rpc->sendMethod(M_ADD_ORDER, QJsonValue(params)) )
+  {
+    beginInsertRows(QModelIndex(), rowCount(), rowCount());
+    const Order order(m_orders.count(), initials, menuItem, price);
+    m_orders << order;
+    endInsertRows();
+  }
 }
 
 void OrdersModel::modifyOrder(const int o_id, const QString initials, const QString menuItem, const QString price)

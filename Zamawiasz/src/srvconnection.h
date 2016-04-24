@@ -31,7 +31,7 @@ class SrvConnection : public QObject
 
     //qint64 sendData( const QByteArray &outData );
 
-    void sendData( const QByteArray &outData );
+    bool sendData( const QByteArray &outData );
     void rpcrecv(CliRpcReceive * rpc) {m_rpcrecv = rpc;}
 
   signals:

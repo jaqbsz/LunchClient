@@ -71,13 +71,18 @@ void SrvConnection::readyRead()
     m_rpcrecv->readResponse(data);
 }
 
-void SrvConnection::sendData(const QByteArray &outData)
+bool SrvConnection::sendData(const QByteArray &outData)
 {
+  bool res = false;
+
   if ( m_state == CONNECTED )
   {
     m_socket->write(outData);
     m_socket->flush();
+    res = true;
   }
+
+  return res;
 }
 
 void SrvConnection::qmlConnect()
