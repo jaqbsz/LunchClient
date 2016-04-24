@@ -5,7 +5,8 @@
 SrvConnection::SrvConnection(const QObject * qmlObjSettings, QObject *parent) :
     QObject(parent),
     qmlObjSettings(qmlObjSettings),
-    m_state(UNKNOWN)
+    m_state(UNKNOWN),
+    m_rpcrecv(nullptr)
 {
 }
 
@@ -64,7 +65,10 @@ void SrvConnection::readyRead()
   QByteArray data = m_socket->readAll();
   qDebug() << data;
 
-  emit sig_newResponse(data);
+  //emit sig_newResponse(data);
+
+  if ( m_rpcrecv )
+    m_rpcrecv->readResponse(data);
 }
 
 void SrvConnection::sendData(const QByteArray &outData)

@@ -5,11 +5,12 @@ QT += network
 CONFIG += c++11
 
 SOURCES += main.cpp \
-    srvconnection.cpp \
-    ordersmodel.cpp \
     src/Lrpc.cpp \
     src/LRpcMethod.cpp \
-    src/clientrpc.cpp
+    src/ordersmodel.cpp \
+    src/srvconnection.cpp \
+    src/CliRpcReceive.cpp \
+    src/CliRpcSend.cpp
 
 RESOURCES += qml.qrc
 
@@ -20,12 +21,13 @@ QML_IMPORT_PATH =
 include(deployment.pri)
 
 HEADERS += \
-    srvconnection.h \
-    order.h \
-    ordersmodel.h \
     src/Lrpc.h \
     src/LRpcMethod.h \
-    src/clientrpc.h
+    src/order.h \
+    src/ordersmodel.h \
+    src/srvconnection.h \
+    src/CliRpcReceive.h \
+    src/CliRpcSend.h
 
 
 RC_ICONS = zamawiasz.ico

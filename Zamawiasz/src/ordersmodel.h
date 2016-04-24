@@ -5,7 +5,9 @@
 #include <QStringList>
 
 #include "order.h"
-#include "src/clientrpc.h"
+#include "CliRpcSend.h"
+
+class CliRpcSend;
 
 class OrdersModel : public QAbstractTableModel
 {
@@ -21,7 +23,7 @@ class OrdersModel : public QAbstractTableModel
       roleCnt = priceRole - Qt::UserRole
     };
 
-    OrdersModel(ClientRpc &rpc, QObject *parent = 0);
+    OrdersModel(QObject *parent = 0);
     void addOrder(const Order &order);
     void addOrder(int o_id, const QString initials, const QString menuItem, const QString price);
 
@@ -38,11 +40,13 @@ class OrdersModel : public QAbstractTableModel
     Q_INVOKABLE QVariant getMenuItem(int row) const;
     Q_INVOKABLE QVariant getPrice(int row) const;
 
+    void rpcsend(CliRpcSend *rpc) { m_rpc = rpc; }
+
   protected:
     QHash<int, QByteArray> roleNames() const;
 
   private:
-    ClientRpc &m_rpc;
+    CliRpcSend *m_rpc;
     QList<Order> m_orders;
 };
 

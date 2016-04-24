@@ -7,6 +7,10 @@
 #include <QString>
 #include <QByteArray>
 
+#include "CliRpcReceive.h"
+
+class CliRpcReceive;
+
 class SrvConnection : public QObject
 {
     Q_OBJECT
@@ -27,6 +31,9 @@ class SrvConnection : public QObject
 
     //qint64 sendData( const QByteArray &outData );
 
+    void sendData( const QByteArray &outData );
+    void rpcrecv(CliRpcReceive * rpc) {m_rpcrecv = rpc;}
+
   signals:
       void qmlConnected(QVariant state);
       void sig_newResponse(QByteArray inData);
@@ -36,7 +43,6 @@ class SrvConnection : public QObject
       void disconnected();
       void bytesWritten(qint64 bytes);
       void readyRead();
-      void sendData( const QByteArray &outData );
 
       void qmlConnect();
       void qmlDisconnect();
@@ -48,6 +54,7 @@ class SrvConnection : public QObject
       const QObject * qmlObjSettings;
 
       ConnState m_state;
+      CliRpcReceive * m_rpcrecv;
 };
 
 #endif // SRVCONNECTION_H

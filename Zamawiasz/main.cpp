@@ -1,13 +1,14 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-#include "srvconnection.h"
+#include "src/srvconnection.h"
 
 #include <QObject>
 #include <qqmlcontext.h>
 
-#include "ordersmodel.h"
-#include "order.h"
-#include "src/clientrpc.h"
+#include "src/ordersmodel.h"
+#include "src/order.h"
+#include "src/CliRpcReceive.h"
+#include "src/CliRpcSend.h"
 
 int main(int argc, char *argv[])
 {
@@ -15,19 +16,20 @@ int main(int argc, char *argv[])
 
   QGuiApplication app(argc, argv);
 
-  ClientRpc rpc;
-  OrdersModel model(rpc);
+  CliRpcSend rpcsend;
+  CliRpcReceive rpcrecv;
+  OrdersModel omodel;
 
   // test only
-  model.addOrder(Order(0, "Wolf", "Medium", "aa"));
-  model.addOrder(Order(1, "Polar bear", "Large", "bb"));
-  model.addOrder(Order(2, "Quoll", "Small", "cc"));
+  omodel.addOrder(Order(0, "Wolf", "Medium", "aa"));
+  omodel.addOrder(Order(1, "Polar bear", "Large", "bb"));
+  omodel.addOrder(Order(2, "Quoll", "Small", "cc"));
   //
 
   QQmlApplicationEngine engine;
 
   QQmlContext *ctxt = engine.rootContext();
-  ctxt->setContextProperty("ordersModel", &model);
+  ctxt->setContextProperty("ordersModel", &omodel);
 
   engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
@@ -36,6 +38,13 @@ int main(int argc, char *argv[])
   QObject *qmlObj_settings = rootObject->findChild<QObject*>("settings");
 
   SrvConnection connection(qmlObj_settings);
+
+  // define data flow between objects
+  omodel.rpcsend(&rpcsend);     // model to rpcsend
+  rpcsend.rpcrcv(&rpcrecv);     // rpcsend to rpcrecive - so rpcreceive knows what should be received
+  rpcsend.conn(&connection);    // rpcsend to socket
+  connection.rpcrecv(&rpcrecv); // socket to rpcreceive
+  rpcrecv.omodel(&omodel);      // rpcreceive to model
 
   // socket - connect
   QObject::connect(qmlObj_topBar, SIGNAL(tb_connect()),
@@ -46,12 +55,6 @@ int main(int argc, char *argv[])
   // socket - state changed
   QObject::connect(&connection,   SIGNAL(qmlConnected(QVariant)),
                    rootObject,    SLOT(signalConnected(QVariant)));
-  // rpc - send data
-  QObject::connect(&rpc,          SIGNAL(sig_sendRequest(QByteArray)),
-                   &connection,   SLOT(sendData(QByteArray)));
-  // socket - data received
-  QObject::connect(&connection,   SIGNAL(sig_newResponse(QByteArray)),
-                   &rpc,          SLOT(slot_readResponse(QByteArray)));
 
   return app.exec();
 }
