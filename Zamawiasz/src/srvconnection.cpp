@@ -75,12 +75,16 @@ bool SrvConnection::sendData(const QByteArray &outData)
 {
   bool res = false;
 
+  qDebug() << "Sending... ";
+
   if ( m_state == CONNECTED )
   {
     m_socket->write(outData);
     m_socket->flush();
     res = true;
   }
+
+  qDebug() << res;
 
   return res;
 }

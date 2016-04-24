@@ -11,7 +11,6 @@ Item
   onOv_visibleChanged:
       if ( ordersView.visible == true )
       {
-        console.log("orders are visible");
         ordersModel.listOrders();
       }
 
@@ -124,9 +123,8 @@ Item
             Rectangle
             {
               anchors.fill: parent
-              color: "grey"
+              color: "#4aad7a"
               radius: 2
-              opacity: 0.3
             }
 
             Text
@@ -143,6 +141,7 @@ Item
 
       TableViewColumn
       {
+        id: o_idCol
         role: "o_id"
         title: "Id"
         resizable: false
@@ -155,7 +154,7 @@ Item
         role: "u_initials"
         title: "Who"
         resizable: true
-        width: parent.width/3
+        width: (parent.width-o_idCol.width)/3
         horizontalAlignment: Text.AlignHCenter
       }
 
@@ -164,7 +163,7 @@ Item
         role: "menu_item"
         title: "What"
         resizable: true
-        width: parent.width/3
+        width: (parent.width-o_idCol.width)/3
         horizontalAlignment: Text.AlignHCenter
       }
 
@@ -173,7 +172,7 @@ Item
         role: "price"
         title: "Price"
         resizable: true
-        width: parent.width/3
+        width: (parent.width-o_idCol.width)/3
         horizontalAlignment: Text.AlignHCenter
       }
 

@@ -65,21 +65,25 @@ void OrdersModel::modifyOrder(const int o_id, const QString initials, const QStr
 
 void OrdersModel::deleteOrder(const int o_id)
 {
-  //TODO check removeRows methods.
-
-  //beginRemoveRows(QModelIndex(), o_id, o_id);
+  qDebug() << "removeOrder (QML): " + QString(o_id);
 
   if (o_id < 0 || o_id >= m_orders.count())
     return;
 
-  qDebug() << "removeOrder (QML): " + QString(o_id);
+  QJsonObject params = m_rpc->getParams(M_DELETE_ORDER);
+  params["O_ID"] = o_id+1;
 
-  m_orders.removeAt(o_id);
+  if ( !m_rpc->sendMethod(M_DELETE_ORDER, QJsonValue(params)) )
+  {
+    //TODO check removeRows methods.
+    //beginRemoveRows(QModelIndex(), o_id, o_id);
+    m_orders.removeAt(o_id);
+    //endRemoveColumns();
 
-  //endRemoveColumns();
-
-  beginResetModel();
-  endResetModel();
+    //quick fix
+    beginResetModel();
+    endResetModel();
+  }
 }
 
 void OrdersModel::listOrders()

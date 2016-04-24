@@ -29,6 +29,7 @@ void CliRpcReceive::readResponse(QByteArray inData)
       case M_ADD_USER:
         break;
 
+      case M_DELETE_ORDER:
       case M_LIST_ORDERS:
         if ( m_om )
         {
@@ -62,9 +63,6 @@ void CliRpcReceive::readResponse(QByteArray inData)
           QString::number(rsp["MENU_ITEM"].toInt()),
           QString::number(rsp["PRICE"].toInt()));
         }
-        break;
-
-      case M_DELETE_ORDER:
         break;
 
       case M_MODIFY_ORDER:

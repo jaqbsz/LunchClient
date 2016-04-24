@@ -20,12 +20,6 @@ int main(int argc, char *argv[])
   CliRpcReceive rpcrecv;
   OrdersModel omodel;
 
-  // test only
-  omodel.addOrder(Order(0, "Wolf", "Medium", "aa"));
-  omodel.addOrder(Order(1, "Polar bear", "Large", "bb"));
-  omodel.addOrder(Order(2, "Quoll", "Small", "cc"));
-  //
-
   QQmlApplicationEngine engine;
 
   QQmlContext *ctxt = engine.rootContext();
