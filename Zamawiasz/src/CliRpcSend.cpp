@@ -18,7 +18,10 @@ bool CliRpcSend::sendMethod(const T_RPCMETHODID methodid, QJsonValue params)
 
   QJsonObject methodobj = getMethodObj(methodid);
 
-  methodobj["params"] = params;
+  if ( params != 0 )
+  {
+    methodobj["params"] = params;
+  }
   methodobj["id"] = m_frameid;
 
   if ( m_rpcrcv )

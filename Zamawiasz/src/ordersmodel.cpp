@@ -6,6 +6,14 @@ OrdersModel::OrdersModel(QObject *parent) :
 {
 }
 
+void OrdersModel::clearModel()
+{
+  m_orders.clear();
+
+  beginResetModel();
+  endResetModel();
+}
+
 void OrdersModel::addOrder(const Order &order)
 {
   beginInsertRows(QModelIndex(), rowCount(), rowCount());
@@ -72,6 +80,11 @@ void OrdersModel::deleteOrder(const int o_id)
 
   beginResetModel();
   endResetModel();
+}
+
+void OrdersModel::listOrders()
+{
+  m_rpc->sendMethod(M_LIST_ORDERS);
 }
 
 int OrdersModel::rowCount(const QModelIndex & parent) const

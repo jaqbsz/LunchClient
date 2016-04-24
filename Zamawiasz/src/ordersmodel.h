@@ -26,10 +26,12 @@ class OrdersModel : public QAbstractTableModel
     OrdersModel(QObject *parent = 0);
     void addOrder(const Order &order);
     void addOrder(int o_id, const QString initials, const QString menuItem, const QString price);
+    void clearModel();
 
     Q_INVOKABLE void addOrder(const QString initials, const QString menuItem, const QString price);
     Q_INVOKABLE void modifyOrder(const int o_id, const QString initials, const QString menuItem, const QString price);
     Q_INVOKABLE void deleteOrder(const int o_id);
+    Q_INVOKABLE void listOrders();
 
     int rowCount(const QModelIndex & parent = QModelIndex()) const;
     int columnCount(const QModelIndex & parent = QModelIndex()) const;

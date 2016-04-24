@@ -8,6 +8,13 @@ Item
 
   anchors.fill: parent
 
+  onOv_visibleChanged:
+      if ( ordersView.visible == true )
+      {
+        console.log("orders are visible");
+        ordersModel.listOrders();
+      }
+
   Rectangle
   {
     id: topRect

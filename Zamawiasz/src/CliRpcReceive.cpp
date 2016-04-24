@@ -21,8 +21,6 @@ void CliRpcReceive::readResponse(QByteArray inData)
     qDebug()<<"json data correct";
     QJsonObject jresponse = in_json.object();
 
-
-
     switch ( m_lastrequest.getId() )
     {
       case M_LIST_USERS:
@@ -32,6 +30,21 @@ void CliRpcReceive::readResponse(QByteArray inData)
         break;
 
       case M_LIST_ORDERS:
+        if ( m_om )
+        {
+          QJsonArray rsp = getResultArray(jresponse);
+
+          m_om->clearModel();
+
+          for (int i = 0; i < rsp.size(); i++)
+          {
+            QJsonObject tmpobj = rsp.at(i).toObject();
+            m_om->addOrder( tmpobj["O_ID"].toInt(),
+                            tmpobj["U_INITIALS"].toString(),
+            QString::number(tmpobj["MENU_ITEM"].toInt()),
+            QString::number(tmpobj["PRICE"].toInt()));
+          }
+        }
         break;
 
       case M_DELETE_USER:
@@ -41,6 +54,7 @@ void CliRpcReceive::readResponse(QByteArray inData)
         break;
 
       case M_ADD_ORDER:
+        if ( m_om )
         {
           QJsonObject rsp = getResultObj(jresponse);
           m_om->addOrder( rsp["O_ID"].toInt(),

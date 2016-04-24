@@ -5,6 +5,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonValue>
+#include <QJsonArray>
 
 #include "LRpcMethod.h"
 
@@ -21,6 +22,7 @@ class LRpc
     QJsonObject getErrorObj   (const char * err_name);
     QJsonObject getResultObj  (const QString &res_name);
     QJsonObject getResultObj  (const QJsonObject &frameObj);
+    QJsonArray  getResultArray(const QJsonObject &frameObj);
     QJsonObject getResultObj  (const LRpcMethod &lrpcMeth);
     QJsonObject getMethodObj  (const T_RPCMETHODID methodid);
     QJsonValue  getResultValue(const QString &res_name);

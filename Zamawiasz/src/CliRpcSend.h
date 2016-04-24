@@ -12,7 +12,7 @@ class CliRpcSend : public LRpc
   public:
     CliRpcSend();
 
-    bool sendMethod(const T_RPCMETHODID methodid, QJsonValue params );
+    bool sendMethod(const T_RPCMETHODID methodid, QJsonValue params = 0 );
 
     void conn(SrvConnection * conn) {m_conn = conn;}
     void rpcrcv(CliRpcReceive * rpcrcv) {m_rpcrcv = rpcrcv;}
