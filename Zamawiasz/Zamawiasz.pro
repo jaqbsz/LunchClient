@@ -10,7 +10,8 @@ SOURCES += main.cpp \
     src/ordersmodel.cpp \
     src/srvconnection.cpp \
     src/CliRpcReceive.cpp \
-    src/CliRpcSend.cpp
+    src/CliRpcSend.cpp \
+    src/UsersModel.cpp
 
 RESOURCES += qml.qrc
 
@@ -27,7 +28,9 @@ HEADERS += \
     src/ordersmodel.h \
     src/srvconnection.h \
     src/CliRpcReceive.h \
-    src/CliRpcSend.h
+    src/CliRpcSend.h \
+    src/UsersModel.h \
+    src/User.h
 
 
 RC_ICONS = zamawiasz.ico

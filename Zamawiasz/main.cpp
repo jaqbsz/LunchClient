@@ -7,6 +7,8 @@
 
 #include "src/ordersmodel.h"
 #include "src/order.h"
+#include "src/UsersModel.h"
+#include "src/User.h"
 #include "src/CliRpcReceive.h"
 #include "src/CliRpcSend.h"
 
@@ -19,11 +21,13 @@ int main(int argc, char *argv[])
   CliRpcSend rpcsend;
   CliRpcReceive rpcrecv;
   OrdersModel omodel;
+  UsersModel umodel;
 
   QQmlApplicationEngine engine;
 
   QQmlContext *ctxt = engine.rootContext();
   ctxt->setContextProperty("ordersModel", &omodel);
+  ctxt->setContextProperty("usersModel", &umodel);
 
   engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
@@ -34,11 +38,13 @@ int main(int argc, char *argv[])
   SrvConnection connection(qmlObj_settings);
 
   // define data flow between objects
-  omodel.rpcsend(&rpcsend);     // model to rpcsend
+  omodel.rpcsend(&rpcsend);     // omodel to rpcsend
+  umodel.rpcsend(&rpcsend);     // umodel to rpcsend
   rpcsend.rpcrcv(&rpcrecv);     // rpcsend to rpcrecive - so rpcreceive knows what should be received
   rpcsend.conn(&connection);    // rpcsend to socket
   connection.rpcrecv(&rpcrecv); // socket to rpcreceive
-  rpcrecv.omodel(&omodel);      // rpcreceive to model
+  rpcrecv.omodel(&omodel);      // rpcreceive to omodel
+  rpcrecv.umodel(&umodel);      // rpcreceive to umodel
 
   // socket - connect
   QObject::connect(qmlObj_topBar, SIGNAL(tb_connect()),
@@ -49,6 +55,10 @@ int main(int argc, char *argv[])
   // socket - state changed
   QObject::connect(&connection,   SIGNAL(qmlConnected(QVariant)),
                    rootObject,    SLOT(signalConnected(QVariant)));
+
+
+  umodel.addUser("Janek", "Kos", "JK");
+
 
   return app.exec();
 }
