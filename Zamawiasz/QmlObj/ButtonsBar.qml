@@ -33,6 +33,18 @@ Item
       id: ordersButt
       anchors.top: parent.top
       bu_text: "Orders"
+
+      Image
+      {
+        id: ordersIcon
+        visible: true
+        width: 23
+        height: 23
+        anchors.horizontalCenter: parent.horizontalCenter;
+        anchors { top: parent.top; margins: 10}
+        source: "../images/orders.png"
+      }
+
       onBu_pressed:
         {
           usersButt.bu_unpressed()
@@ -49,6 +61,18 @@ Item
       anchors.top: ordersButt.bottom
       anchors.topMargin: -1
       bu_text: "Users"
+
+      Image
+      {
+        id: usersIcon
+        visible: true
+        width: 23
+        height: 23
+        anchors.horizontalCenter: parent.horizontalCenter;
+        anchors { top: parent.top; margins: 10}
+        source: "../images/users.png"
+      }
+
       onBu_pressed:
         {
           ordersButt.bu_unpressed()
@@ -65,6 +89,18 @@ Item
       anchors.top: usersButt.bottom
       anchors.topMargin: -1
       bu_text: "Statistics"
+
+      Image
+      {
+        id: statsIcon
+        visible: true
+        width: 23
+        height: 23
+        anchors.horizontalCenter: parent.horizontalCenter;
+        anchors { top: parent.top; margins: 10}
+        source: "../images/stats.png"
+      }
+
       onBu_pressed:
         {
           ordersButt.bu_unpressed()
@@ -94,7 +130,7 @@ Item
 
       onBu_stateChanged:
           if (bu_state=="hover")
-            buttonsRect.state = "hover"
+            buttonsRect.state = "set_hover"
           else
             buttonsRect.state = "normal"
 
@@ -112,7 +148,7 @@ Item
     [
       State
       {
-        name: "hover"
+        name: "set_hover"
         PropertyChanges { target: settingsIcon; rotation: 360; }
       }
     ]
@@ -121,7 +157,7 @@ Item
     [
       Transition
       {
-        to: "hover"
+        to: "set_hover"
         NumberAnimation { target: settingsIcon; property: "rotation"; duration: 1000  }
       }
     ]

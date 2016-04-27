@@ -30,9 +30,21 @@ Item
 
     Text
     {
+      id: appNameText
       text: "Zamawiasz"; color: "white"
-      anchors { left: parent.left; margins: 30; verticalCenter: parent.verticalCenter }
+      anchors { left: parent.left; leftMargin: 50; verticalCenter: parent.verticalCenter }
       font.family: "Verdana"; font.pixelSize: 26
+    }
+
+    Image
+    {
+      id: logoIcon
+      visible: true
+      width: 30
+      height: 30
+      anchors.verticalCenter: parent.verticalCenter;
+      anchors { right: appNameText.left }
+      source: "../images/logo.png"
     }
 
     Item

@@ -99,7 +99,7 @@ Item
   {
     id: ordersRect
     anchors { top: topRect.bottom; left: parent.left; right: parent.right; bottom: statusRect.top }
-    color: "#b55454"
+    color: "#d34d38"
     radius: 2
 
     TableView
@@ -123,8 +123,7 @@ Item
             Rectangle
             {
               anchors.fill: parent
-              color: "#4aad7a"
-              radius: 2
+              color: "#f13012"
             }
 
             Text
