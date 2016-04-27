@@ -2,7 +2,7 @@
 #define CLIRPCSEND_H
 
 #include "Lrpc.h"
-#include "srvconnection.h"
+#include "SrvConnection.h"
 
 class SrvConnection;
 class CliRpcReceive;

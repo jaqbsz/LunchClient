@@ -1,4 +1,4 @@
-#include "ordersmodel.h"
+#include "OrdersModel.h"
 #include <QDebug>
 
 OrdersModel::OrdersModel(QObject *parent) :

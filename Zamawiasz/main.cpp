@@ -1,12 +1,12 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-#include "src/srvconnection.h"
+#include "src/SrvConnection.h"
 
 #include <QObject>
 #include <qqmlcontext.h>
 
-#include "src/ordersmodel.h"
-#include "src/order.h"
+#include "src/OrdersModel.h"
+#include "src/Order.h"
 #include "src/UsersModel.h"
 #include "src/User.h"
 #include "src/CliRpcReceive.h"
@@ -37,6 +37,7 @@ int main(int argc, char *argv[])
 
   SrvConnection connection(qmlObj_settings);
 
+  // TODO observer pattern, callback function or QT signals should be used here
   // define data flow between objects
   omodel.rpcsend(&rpcsend);     // omodel to rpcsend
   umodel.rpcsend(&rpcsend);     // umodel to rpcsend
@@ -55,10 +56,6 @@ int main(int argc, char *argv[])
   // socket - state changed
   QObject::connect(&connection,   SIGNAL(qmlConnected(QVariant)),
                    rootObject,    SLOT(signalConnected(QVariant)));
-
-
-  umodel.addUser("Janek", "Kos", "JK");
-
 
   return app.exec();
 }

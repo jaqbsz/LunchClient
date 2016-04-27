@@ -4,7 +4,7 @@
 #include <QAbstractListModel>
 #include <QStringList>
 
-#include "order.h"
+#include "Order.h"
 #include "CliRpcSend.h"
 
 class CliRpcSend;

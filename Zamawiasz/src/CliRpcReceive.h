@@ -1,7 +1,7 @@
 #ifndef CLIRPCRECEIVE_H
 #define CLIRPCRECEIVE_H
 
-#include "ordersmodel.h"
+#include "OrdersModel.h"
 #include "UsersModel.h"
 #include "Lrpc.h"
 

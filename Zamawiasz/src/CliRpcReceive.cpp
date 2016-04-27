@@ -23,14 +23,41 @@ void CliRpcReceive::readResponse(QByteArray inData)
 
     switch ( m_lastrequest.getId() )
     {
+      case M_DELETE_USER:
       case M_LIST_USERS:
+        qDebug() << "DELETE_USER or LIST_USERS rsp received";
+        if ( m_um )
+        {
+          QJsonArray rsp = getResultArray(jresponse);
+
+          m_um->clearModel();
+
+          for (int i = 0; i < rsp.size(); i++)
+          {
+            QJsonObject tmpobj = rsp.at(i).toObject();
+            m_um->addUser(  tmpobj["U_ID"].toInt(),
+                            tmpobj["F_NAME"].toString(),
+                            tmpobj["L_NAME"].toString(),
+                            tmpobj["INITIALS"].toString());
+          }
+        }
         break;
 
       case M_ADD_USER:
+        qDebug() << "ADD_USER rsp received";
+        if ( m_um )
+        {
+          QJsonObject rsp = getResultObj(jresponse);
+          m_um->addUser(  rsp["U_ID"].toInt(),
+                          rsp["F_NAME"].toString(),
+                          rsp["L_NAME"].toString(),
+                          rsp["INITIALS"].toString());
+        }
         break;
 
       case M_DELETE_ORDER:
       case M_LIST_ORDERS:
+        qDebug() << "DELETE_ORDER or LIST_ORDERS rsp received";
         if ( m_om )
         {
           QJsonArray rsp = getResultArray(jresponse);
@@ -48,13 +75,12 @@ void CliRpcReceive::readResponse(QByteArray inData)
         }
         break;
 
-      case M_DELETE_USER:
-        break;
-
       case M_MODIFY_USER:
+        qDebug() << "MODIFY_USER rsp received";
         break;
 
       case M_ADD_ORDER:
+        qDebug() << "ADD_ORDER rsp received";
         if ( m_om )
         {
           QJsonObject rsp = getResultObj(jresponse);
@@ -66,6 +92,7 @@ void CliRpcReceive::readResponse(QByteArray inData)
         break;
 
       case M_MODIFY_ORDER:
+        qDebug() << "MODIFY_ORDE rsp received";
         break;
 
       default:

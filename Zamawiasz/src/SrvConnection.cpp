@@ -1,4 +1,4 @@
-#include "srvconnection.h"
+#include "SrvConnection.h"
 
 #include <QString>
 
