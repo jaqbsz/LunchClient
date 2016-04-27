@@ -83,11 +83,20 @@ void CliRpcReceive::readResponse(QByteArray inData)
         qDebug() << "ADD_ORDER rsp received";
         if ( m_om )
         {
-          QJsonObject rsp = getResultObj(jresponse);
-          m_om->addOrder( rsp["O_ID"].toInt(),
-                          rsp["U_INITIALS"].toString(),
-          QString::number(rsp["MENU_ITEM"].toInt()),
-          QString::number(rsp["PRICE"].toInt()));
+          QString msg = checkResponse(jresponse);
+
+          if ( msg == "OK" )
+          {
+            QJsonObject rsp = getResultObj(jresponse);
+            m_om->addOrder( rsp["O_ID"].toInt(),
+                            rsp["U_INITIALS"].toString(),
+            QString::number(rsp["MENU_ITEM"].toInt()),
+            QString::number(rsp["PRICE"].toInt()));
+          }
+          else
+          {
+            qDebug() << msg;
+          }
         }
         break;
 

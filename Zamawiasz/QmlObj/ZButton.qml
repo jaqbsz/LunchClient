@@ -9,11 +9,13 @@ Item
   signal bu_pressed()
   signal bu_unpressed()
   property bool pressed
+  property string bu_state
 
   anchors { left: parent.left; right: parent.right }
   height: 60
 
   onBu_unpressed: state = "normal"
+  bu_state: buttonItem.state
 
   states:
   [
@@ -21,17 +23,18 @@ Item
     {
       name: "hover"
       PropertyChanges { target: buttonRect; color: "#503a5a" }
+      PropertyChanges { target: buttonItem; bu_state: "hover" }
     },
     State
     {
       name: "pressed"
-      PropertyChanges { target: buttonItem; pressed: true }
+      PropertyChanges { target: buttonItem; pressed: true; bu_state: "pressed" }
       PropertyChanges { target: buttonRect; color: "#503a5a"; radius: 10 }
     },
     State
     {
       name: "normal"
-      PropertyChanges { target: buttonItem; pressed: false }
+      PropertyChanges { target: buttonItem; pressed: false; bu_state: "normal" }
       PropertyChanges { target: buttonRect; color: "#755a5a" }
     }
   ]
@@ -60,10 +63,10 @@ Item
         id: buttonMA
         anchors.fill: parent
         hoverEnabled: true
-      onClicked:
+        onClicked:
           if (buttonItem.state != "pressed")
           {
-            buttonItem.state = "pressed";
+            buttonItem.state = "pressed"
             buttonItem.bu_pressed()
           }
           else

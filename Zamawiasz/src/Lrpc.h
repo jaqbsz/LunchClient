@@ -29,7 +29,7 @@ class LRpc
     QJsonValue  getFrameId    (const QJsonObject & frameObj);
     QJsonValue  getParams     (const QJsonObject & frameObj);
     QJsonObject getParams     (const T_RPCMETHODID methodid);
-
+    QString     checkResponse (const QJsonObject &frameObj);
   private:
     QJsonObject rpcObj;
 

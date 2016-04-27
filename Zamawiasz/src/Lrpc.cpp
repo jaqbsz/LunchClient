@@ -57,6 +57,21 @@ QJsonObject LRpc::getResultObj(const QString & res_name)
   return result;
 }
 
+
+//**************************************************************************************
+//* checkResponse()
+//*
+//**************************************************************************************
+QString LRpc::checkResponse(const QJsonObject &frameObj)
+{
+  QJsonObject check_err = frameObj.value("error").toObject();
+
+  if (check_err.empty())
+    return "OK";
+  else
+    return check_err["message"].toString();
+}
+
 //**************************************************************************************
 //* getResultObj()
 //*
