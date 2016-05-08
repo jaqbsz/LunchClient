@@ -19,8 +19,7 @@ Item
     id: topRect
     anchors {top: parent.top; left: parent.left; right: parent.right }
     height: 50
-    color: "#d34d38"
-    radius: 2
+    color: "#568e8f"
 
     Item
     {
@@ -91,16 +90,14 @@ Item
     id: statusRect
     anchors {bottom: parent.bottom; left: parent.left; right: parent.right }
     height: 50
-    color: "#d34d38"
-    radius: 2
+    color: "#568e8f"
   }
 
   Rectangle
   {
     id: ordersRect
     anchors { top: topRect.bottom; left: parent.left; right: parent.right; bottom: statusRect.top }
-    color: "#d34d38"
-    radius: 2
+    color: "#5F9EA0"
 
     TableView
     {
@@ -123,7 +120,7 @@ Item
             Rectangle
             {
               anchors.fill: parent
-              color: "#f13012"
+              color: "#191970"
             }
 
             Text

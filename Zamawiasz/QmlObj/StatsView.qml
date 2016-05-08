@@ -11,8 +11,7 @@ Item
   {
     id: statsRect
     anchors.fill: parent
-    color: "purple"
-    radius: 10
+    color: "#4169E1"
 
     Image
     {

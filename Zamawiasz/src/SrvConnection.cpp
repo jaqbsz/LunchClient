@@ -1,7 +1,10 @@
 #include "SrvConnection.h"
-
 #include <QString>
 
+//**************************************************************************************
+//* constructor()
+//*
+//**************************************************************************************
 SrvConnection::SrvConnection(const QObject * qmlObjSettings, QObject *parent) :
     QObject(parent),
     qmlObjSettings(qmlObjSettings),
@@ -10,6 +13,10 @@ SrvConnection::SrvConnection(const QObject * qmlObjSettings, QObject *parent) :
 {
 }
 
+//**************************************************************************************
+//* doConnect()
+//*
+//**************************************************************************************
 void SrvConnection::doConnect(QString hostname, int portnr)
 {
   m_socket = new QTcpSocket(this);
@@ -35,28 +42,39 @@ void SrvConnection::doConnect(QString hostname, int portnr)
     m_state = CONNECTED;
 }
 
-//qint64 SrvConnection::sendData(const QByteArray &outData)
-//{
-//  return m_socket->write(outData);
-//}
-
+//**************************************************************************************
+//* connected()
+//*
+//**************************************************************************************
 void SrvConnection::connected()
 {
   qDebug() << "connected...";
   emit this->qmlConnected(true);
 }
 
+//**************************************************************************************
+//* disconnected()
+//*
+//**************************************************************************************
 void SrvConnection::disconnected()
 {
   qDebug() << "disconnected...";
   emit this->qmlConnected(false);
 }
 
+//**************************************************************************************
+//* bytesWritten()
+//*
+//**************************************************************************************
 void SrvConnection::bytesWritten(qint64 bytes)
 {
   qDebug() << bytes << " bytes written...";
 }
 
+//**************************************************************************************
+//* readyRead()
+//*
+//**************************************************************************************
 void SrvConnection::readyRead()
 {
   qDebug() << "reading...";
@@ -71,6 +89,10 @@ void SrvConnection::readyRead()
     m_rpcrecv->readResponse(data);
 }
 
+//**************************************************************************************
+//* sendData()
+//*
+//**************************************************************************************
 bool SrvConnection::sendData(const QByteArray &outData)
 {
   bool res = false;
@@ -89,6 +111,10 @@ bool SrvConnection::sendData(const QByteArray &outData)
   return res;
 }
 
+//**************************************************************************************
+//* qmlConnect()
+//*
+//**************************************************************************************
 void SrvConnection::qmlConnect()
 {
   qDebug() << "QmlConnect...";
@@ -99,6 +125,10 @@ void SrvConnection::qmlConnect()
   this->doConnect(hostname, portnr);
 }
 
+//**************************************************************************************
+//* qmlDisconnect()
+//*
+//**************************************************************************************
 void SrvConnection::qmlDisconnect()
 {
   qDebug() << "Disconnect...";

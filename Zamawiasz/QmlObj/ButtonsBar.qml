@@ -7,7 +7,7 @@ Item
   property alias bb_width: buttonsBar.width
   signal bb_buttPressed(string bu_name)
 
-  anchors { left: parent.left; top: parent.top; bottom: parent.bottom; margins: 3 }
+  anchors { left: parent.left; top: parent.top; bottom: parent.bottom; margins: 1 }
 
   function sendUnPressed()
   {
@@ -21,29 +21,41 @@ Item
     if ( !res ) buttonsBar.bb_buttPressed("None")
   }
 
+  function makeButtonsWide()
+  {
+    ordersButt.bu_widthState = "wide"
+    usersButt.bu_widthState = "wide"
+    statsButt.bu_widthState = "wide"
+    settingsButt.bu_widthState = "wide"
+  }
+
+  function makeButtonsNarrow()
+  {
+    ordersButt.bu_widthState = "narrow"
+    usersButt.bu_widthState = "narrow"
+    statsButt.bu_widthState = "narrow"
+    settingsButt.bu_widthState = "narrow"
+  }
+
+  // TODO ugly fix, should be done with states of buttonsBar
+  onBb_widthChanged:
+      if (buttonsBar.width == 120)
+        makeButtonsWide()
+      else
+        makeButtonsNarrow()
+
   Rectangle
   {
     id: buttonsRect
     anchors.fill: parent
-    color: "#483c3c"
-    radius: 2
+    color: "#0073e6"
 
     ZButton
     {
       id: ordersButt
       anchors.top: parent.top
       bu_text: "Orders"
-
-      Image
-      {
-        id: ordersIcon
-        visible: true
-        width: 23
-        height: 23
-        anchors.horizontalCenter: parent.horizontalCenter;
-        anchors { top: parent.top; margins: 10}
-        source: "../images/orders.png"
-      }
+      bu_IconSource: "../images/orders.png"
 
       onBu_pressed:
         {
@@ -59,19 +71,8 @@ Item
     {
       id: usersButt
       anchors.top: ordersButt.bottom
-      anchors.topMargin: -1
       bu_text: "Users"
-
-      Image
-      {
-        id: usersIcon
-        visible: true
-        width: 23
-        height: 23
-        anchors.horizontalCenter: parent.horizontalCenter;
-        anchors { top: parent.top; margins: 10}
-        source: "../images/users.png"
-      }
+      bu_IconSource: "../images/users.png"
 
       onBu_pressed:
         {
@@ -87,19 +88,8 @@ Item
     {
       id: statsButt
       anchors.top: usersButt.bottom
-      anchors.topMargin: -1
       bu_text: "Statistics"
-
-      Image
-      {
-        id: statsIcon
-        visible: true
-        width: 23
-        height: 23
-        anchors.horizontalCenter: parent.horizontalCenter;
-        anchors { top: parent.top; margins: 10}
-        source: "../images/stats.png"
-      }
+      bu_IconSource: "../images/stats.png"
 
       onBu_pressed:
         {
@@ -116,23 +106,13 @@ Item
       id: settingsButt
       anchors.bottom: parent.bottom
       bu_text: "Settings"
+      bu_IconSource: "../images/settings.png"
 
-      Image
-      {
-        id: settingsIcon
-        visible: true
-        width: 20
-        height: 20
-        anchors.horizontalCenter: parent.horizontalCenter;
-        anchors { top: parent.top; margins: 10}
-        source: "../images/settings.png"
-      }
-
-      onBu_stateChanged:
-          if (bu_state=="hover")
-            buttonsRect.state = "set_hover"
-          else
-            buttonsRect.state = "normal"
+//      onBu_stateChanged:
+//          if (bu_state=="hover")
+//            buttonsRect.state = "set_hover"
+//          else
+//            buttonsRect.state = "normal"
 
       onBu_pressed:
         {
@@ -144,22 +124,22 @@ Item
       onBu_unpressed: sendUnPressed()
     }
 
-    states:
-    [
-      State
-      {
-        name: "set_hover"
-        PropertyChanges { target: settingsIcon; rotation: 360; }
-      }
-    ]
+//    states:
+//    [
+//      State
+//      {
+//        name: "set_hover"
+//        PropertyChanges { target: settingsIcon; rotation: 360; }
+//      }
+//    ]
 
-    transitions:
-    [
-      Transition
-      {
-        to: "set_hover"
-        NumberAnimation { target: settingsIcon; property: "rotation"; duration: 1000  }
-      }
-    ]
+//    transitions:
+//    [
+//      Transition
+//      {
+//        to: "set_hover"
+//        NumberAnimation { target: settingsIcon; property: "rotation"; duration: 1000  }
+//      }
+//    ]
   }
 }

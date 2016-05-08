@@ -10,7 +10,7 @@ Item
 
   property alias tb_height: topBar.height
 
-  anchors { top: parent.top; left: parent.left; right: parent.right; margins: 3 }
+  anchors { top: parent.top; left: parent.left; right: parent.right; margins: 1 }
 
   onTb_connected:
   {
@@ -24,9 +24,8 @@ Item
   {
     id: barRect
     anchors.fill: parent
-    color: "#483c3c"
+    color: "#0073e6"
     height: parent.height
-    radius: 2
 
     Text
     {

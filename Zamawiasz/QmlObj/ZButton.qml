@@ -1,41 +1,70 @@
 import QtQuick 2.0
 
+
 Item
 {
   id: buttonItem
 
+  /// aliases
+  // label of the button
   property alias bu_text: buttonText.text
-  property alias bu_color: buttonRect.color
+
+  /// custom properties
+  // button pressed signal
   signal bu_pressed()
+
+  // button unpressed signal
   signal bu_unpressed()
+
+  // holds information wheter the button is pressed
   property bool pressed
+
+  // holds information about current state of the button
+  // possible values: "normal", "hover", "pressed"
   property string bu_state
 
+  // holds buttons icon source
+  property string bu_IconSource
+
+  //
+  property string bu_widthState
+
+  // style object
+  property var bStyle:
+  {
+    'bColor_hover': "#1a8cff",
+    'bColor_pressed': "#004d99",
+    'bColor_normal': "#0073e6"
+  }
+  // -----
+
   anchors { left: parent.left; right: parent.right }
-  height: 60
+  height: 40
 
   onBu_unpressed: state = "normal"
   bu_state: buttonItem.state
+
+  onBu_widthStateChanged: buttonRect.state = bu_widthState
 
   states:
   [
     State
     {
       name: "hover"
-      PropertyChanges { target: buttonRect; color: "#503a5a" }
+      PropertyChanges { target: buttonRect; color: bStyle.bColor_hover }
       PropertyChanges { target: buttonItem; bu_state: "hover" }
     },
     State
     {
       name: "pressed"
       PropertyChanges { target: buttonItem; pressed: true; bu_state: "pressed" }
-      PropertyChanges { target: buttonRect; color: "#503a5a"; radius: 10 }
+      PropertyChanges { target: buttonRect; color: bStyle.bColor_pressed }
     },
     State
     {
       name: "normal"
       PropertyChanges { target: buttonItem; pressed: false; bu_state: "normal" }
-      PropertyChanges { target: buttonRect; color: "#755a5a" }
+      PropertyChanges { target: buttonRect; color: bStyle.bColor_normal }
     }
   ]
 
@@ -43,10 +72,8 @@ Item
   {
     id: buttonRect
     anchors.fill: parent
-    color: "#755a5a"
-    radius: 2
-    border.width: 1
-    border.color: "#d5bdbd"
+    color: bStyle.bColor_normal
+    state: "narrow"
 
     Text
     {
@@ -55,7 +82,16 @@ Item
       font.family: "Verdana"
       color: "white"
       font.pixelSize: 12
-      anchors { bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; bottomMargin: 5 }
+      anchors { verticalCenter: parent.verticalCenter; left: buttonIcon.right; leftMargin: 10 }
+    }
+
+    Image
+    {
+      id: buttonIcon
+      width: 25
+      height: 25
+      anchors { verticalCenter: buttonRect.verticalCenter; leftMargin: 10 }
+      source: buttonItem.bu_IconSource
     }
 
     MouseArea
@@ -87,5 +123,23 @@ Item
             }
           }
     }
+
+    states:
+    [
+      State
+      {
+        name: "narrow"
+        PropertyChanges {target: buttonIcon }
+        AnchorChanges   {target: buttonIcon; anchors { horizontalCenter: buttonRect.horizontalCenter } }
+        PropertyChanges {target: buttonText; visible: false}
+      },
+      State
+      {
+        name: "wide"
+        PropertyChanges {target: buttonIcon }
+        AnchorChanges   {target: buttonIcon; anchors { left: buttonRect.left; } }
+        PropertyChanges {target: buttonText; visible: true}
+      }
+    ]
   }
 }

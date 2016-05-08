@@ -1,6 +1,6 @@
 import QtQuick 2.4
 import QtQuick.Window 2.2
-  import QtQuick.Controls 1.4
+import QtQuick.Controls 1.4
 
 import "QmlObj"
 
@@ -10,7 +10,13 @@ Window
     visible: true
 
     minimumHeight: 500
-    minimumWidth: 500
+    minimumWidth: 700
+
+    onWidthChanged:
+        if (mainWindow.width > 900)
+          buttonsBar.bb_width = 120
+        else
+          buttonsBar.bb_width = 60
 
     function signalConnected(state)
     {
@@ -21,7 +27,7 @@ Window
     Rectangle
     {
       id: mainRect
-      color: "grey"
+      color: "#004d99"
       anchors.fill: parent
     }
 

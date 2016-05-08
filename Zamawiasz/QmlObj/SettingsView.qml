@@ -13,8 +13,7 @@ Item
   {
     id: settingsRect
     anchors.fill: parent
-    color: "#7e7e35"
-    radius: 2
+    color: "#87CEFA"
 
     Column
     {

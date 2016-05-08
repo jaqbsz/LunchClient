@@ -1,6 +1,10 @@
 #include "UsersModel.h"
 #include <QDebug>
 
+//**************************************************************************************
+//* constructor()
+//*
+//**************************************************************************************
 UsersModel::UsersModel(QObject *parent) :
   QAbstractTableModel(parent)
 {

@@ -1,5 +1,9 @@
 #include "CliRpcReceive.h"
 
+//**************************************************************************************
+//* constructor()
+//*
+//**************************************************************************************
 CliRpcReceive::CliRpcReceive() :
   LRpc("../json/lunch_prot.json"),
   m_lastrequest(LRPC_MAX),
@@ -8,7 +12,10 @@ CliRpcReceive::CliRpcReceive() :
 
 }
 
-
+//**************************************************************************************
+//* readResponse()
+//*
+//**************************************************************************************
 void CliRpcReceive::readResponse(QByteArray inData)
 {
   qDebug() << "New response received.";

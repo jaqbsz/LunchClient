@@ -6,7 +6,7 @@ Item
   signal mv_changed(string name)
   property string nview_dddate: "no data"
 
-  anchors { top: parent.top; left: parent.left; bottom: parent.bottom; right: parent.right; margins: 3 }
+  anchors { top: parent.top; left: parent.left; bottom: parent.bottom; right: parent.right; margins: 1 }
 
   /// set default state for the object
   state: "None"

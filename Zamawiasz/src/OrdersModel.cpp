@@ -1,11 +1,19 @@
 #include "OrdersModel.h"
 #include <QDebug>
 
+//**************************************************************************************
+//* constructor()
+//*
+//**************************************************************************************
 OrdersModel::OrdersModel(QObject *parent) :
   QAbstractTableModel(parent)
 {
 }
 
+//**************************************************************************************
+//* clearModel()
+//*
+//**************************************************************************************
 void OrdersModel::clearModel()
 {
   m_orders.clear();
@@ -14,6 +22,10 @@ void OrdersModel::clearModel()
   endResetModel();
 }
 
+//**************************************************************************************
+//* addOrder()
+//*
+//**************************************************************************************
 void OrdersModel::addOrder(const Order &order)
 {
   beginInsertRows(QModelIndex(), rowCount(), rowCount());
@@ -21,6 +33,10 @@ void OrdersModel::addOrder(const Order &order)
   endInsertRows();
 }
 
+//**************************************************************************************
+//* addOrder()
+//*
+//**************************************************************************************
 void OrdersModel::addOrder(int o_id, const QString initials, const QString menuItem, const QString price)
 {
   beginInsertRows(QModelIndex(), rowCount(), rowCount());
@@ -31,6 +47,10 @@ void OrdersModel::addOrder(int o_id, const QString initials, const QString menuI
   endInsertRows();
 }
 
+//**************************************************************************************
+//* addOrder()
+//*
+//**************************************************************************************
 void OrdersModel::addOrder(const QString initials, const QString menuItem, const QString price)
 {
   qDebug() << "addOrder (QML)";
@@ -49,6 +69,10 @@ void OrdersModel::addOrder(const QString initials, const QString menuItem, const
   }
 }
 
+//**************************************************************************************
+//* modifyOrder()
+//*
+//**************************************************************************************
 void OrdersModel::modifyOrder(const int o_id, const QString initials, const QString menuItem, const QString price)
 {
   if (o_id < 0 || o_id >= m_orders.count())
@@ -63,6 +87,10 @@ void OrdersModel::modifyOrder(const int o_id, const QString initials, const QStr
   emit dataChanged(index(0, 0), index(m_orders.count() - 1, 0));
 }
 
+//**************************************************************************************
+//* deleteOrder()
+//*
+//**************************************************************************************
 void OrdersModel::deleteOrder(const int o_id)
 {
   qDebug() << "removeOrder (QML): " + QString(o_id);
@@ -86,23 +114,39 @@ void OrdersModel::deleteOrder(const int o_id)
   }
 }
 
+//**************************************************************************************
+//* listOrders()
+//*
+//**************************************************************************************
 void OrdersModel::listOrders()
 {
   m_rpc->sendMethod(M_LIST_ORDERS);
 }
 
+//**************************************************************************************
+//* rowCount()
+//*
+//**************************************************************************************
 int OrdersModel::rowCount(const QModelIndex & parent) const
 {
   Q_UNUSED(parent);
   return m_orders.count();
 }
 
+//**************************************************************************************
+//* columnCount()
+//*
+//**************************************************************************************
 int OrdersModel::columnCount(const QModelIndex & parent) const
 {
   Q_UNUSED(parent);
   return roleCnt;
 }
 
+//**************************************************************************************
+//* data()
+//*
+//**************************************************************************************
 QVariant OrdersModel::data(const QModelIndex & index, int role) const
 {
   if (index.row() < 0 || index.row() >= m_orders.count())
@@ -129,6 +173,10 @@ QVariant OrdersModel::data(const QModelIndex & index, int role) const
   }
 }
 
+//**************************************************************************************
+//* getMenuItem()
+//*
+//**************************************************************************************
 QVariant OrdersModel::getMenuItem(int row) const
 {
   if (row < 0 || row >= m_orders.count())
@@ -139,6 +187,10 @@ QVariant OrdersModel::getMenuItem(int row) const
   return order.menu_item();
 }
 
+//**************************************************************************************
+//* getPrice()
+//*
+//**************************************************************************************
 QVariant OrdersModel::getPrice(int row) const
 {
   if (row < 0 || row >= m_orders.count())
@@ -149,6 +201,10 @@ QVariant OrdersModel::getPrice(int row) const
   return order.price();
 }
 
+//**************************************************************************************
+//* getInitials()
+//*
+//**************************************************************************************
 QVariant OrdersModel::getInitials(int row) const
 {
   if (row < 0 || row >= m_orders.count())
@@ -159,6 +215,10 @@ QVariant OrdersModel::getInitials(int row) const
   return order.u_initials();
 }
 
+//**************************************************************************************
+//* getId()
+//*
+//**************************************************************************************
 QVariant OrdersModel::getId(int row) const
 {
   if (row < 0 || row >= m_orders.count())
@@ -169,6 +229,10 @@ QVariant OrdersModel::getId(int row) const
   return order.o_id();
 }
 
+//**************************************************************************************
+//* roleNames()
+//*
+//**************************************************************************************
 QHash<int, QByteArray> OrdersModel::roleNames() const
 {
   QHash<int, QByteArray> roles;
