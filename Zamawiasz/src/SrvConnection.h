@@ -7,32 +7,28 @@
 #include <QString>
 #include <QByteArray>
 
-#include "CliRpcReceive.h"
+#include "RpcReceive.h"
 
-class CliRpcReceive;
+class RpcReceive;
 
 class SrvConnection : public QObject
 {
     Q_OBJECT
 
   public:
-    enum ConnState
+    enum class ConnState
     {
-      UNKNOWN = 0,
+      UNKNOWN,
       CONNECTED,
       DISCONNECTED
     };
 
-    explicit SrvConnection(const QObject * qmlObjSettings, QObject *parent = 0);
+    explicit SrvConnection(const QObject * m_qmlObjSettings, QObject *parent = 0);
 
     void doConnect(QString hostname, int portnr);
-
     ConnState state() { return m_state; }
-
-    //qint64 sendData( const QByteArray &outData );
-
     bool sendData( const QByteArray &outData );
-    void rpcrecv(CliRpcReceive * rpc) {m_rpcrecv = rpc;}
+    void rpcrecv(RpcReceive * rpc) {m_rpcrecv = rpc;}
 
   signals:
       void qmlConnected(QVariant state);
@@ -51,10 +47,10 @@ class SrvConnection : public QObject
       QTcpSocket *m_socket;
 
       //TODO this should be a class holding settings
-      const QObject * qmlObjSettings;
+      const QObject * m_qmlObjSettings;
 
       ConnState m_state;
-      CliRpcReceive * m_rpcrecv;
+      RpcReceive * m_rpcrecv;
 };
 
 #endif // SRVCONNECTION_H

@@ -22,27 +22,27 @@ class LRpcMethod
   public:
     LRpcMethod(const QString & method_name);
     LRpcMethod(const char * method_name);
-    LRpcMethod(const T_RPCMETHODID id);
+    LRpcMethod(const T_RPCMETHODID m_id);
 
     T_RPCMETHODID getId() const
     {
-      return this->id;
+      return m_id;
     }
 
     const char * getName() const
     {
-      return this->name;
+      return m_name;
     }
 
     const char * getNameObj() const
     {
-      return this->nameObj;
+      return m_nameObj;
     }
 
   private:
-    T_RPCMETHODID id;
-    const char * name;
-    const char * nameObj;
+    T_RPCMETHODID m_id;
+    const char * m_name;
+    const char * m_nameObj;
 };
 
 #endif // LRPCMETHOD_H

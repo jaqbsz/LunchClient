@@ -8,10 +8,10 @@
 class OrdersModel;
 class UsersModel;
 
-class CliRpcReceive : public LRpc
+class RpcReceive : public LRpc
 {
   public:
-    CliRpcReceive();
+    RpcReceive();
 
     void readResponse(QByteArray inData);
 

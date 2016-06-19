@@ -38,18 +38,18 @@ LRpcMethod::LRpcMethod(const QString &method_name)
   {
     if ( ( method_name == method[i].name ) || ( method_name == method_obj[i].name ) )
     {
-      this->id = static_cast<T_RPCMETHODID>(i);
-      this->nameObj = method_obj[i].name;
-      this->name = method[i].name;
+      m_id = static_cast<T_RPCMETHODID>(i);
+      m_nameObj = method_obj[i].name;
+      m_name = method[i].name;
       break;
     }
   }
 
   if (i == LRPC_MAX)
   {
-    this->id = LRPC_MAX;
-    this->name = "null";
-    this->nameObj = "null";
+    m_id = LRPC_MAX;
+    m_name = "null";
+    m_nameObj = "null";
     // TODO throw exception
   }
 }
@@ -65,18 +65,18 @@ LRpcMethod::LRpcMethod(const char *method_name)
   {
     if ( ( strcmp(method_name, method[i].name) == 0 ) || ( strcmp(method_name, method_obj[i].name) == 0 ) )
     {
-      this->id = static_cast<T_RPCMETHODID>(i);
-      this->nameObj = method_obj[i].name;
-      this->name = method[i].name;
+      m_id = static_cast<T_RPCMETHODID>(i);
+      m_nameObj = method_obj[i].name;
+      m_name = method[i].name;
       break;
     }
   }
 
   if (i == LRPC_MAX)
   {
-    this->id = LRPC_MAX;
-    this->name = "null";
-    this->nameObj = "null";
+    m_id = LRPC_MAX;
+    m_name = "null";
+    m_nameObj = "null";
     // TODO throw exception
   }
 }
@@ -89,15 +89,15 @@ LRpcMethod::LRpcMethod(const T_RPCMETHODID id)
 {
   if ( id < LRPC_MAX )
   {
-    this->id = id;
-    this->name = method[id].name;
-    this->nameObj = method_obj[id].name;
+    m_id = id;
+    m_name = method[id].name;
+    m_nameObj = method_obj[id].name;
   }
   else
   {
-    this->id = LRPC_MAX;
-    this->name = "null";
-    this->nameObj = "null";
+    m_id = LRPC_MAX;
+    m_name = "null";
+    m_nameObj = "null";
     // TODO throw exception
   }
 }

@@ -5,9 +5,9 @@
 #include <QStringList>
 
 #include "Order.h"
-#include "CliRpcSend.h"
+#include "RpcSend.h"
 
-class CliRpcSend;
+class RpcSend;
 
 class OrdersModel : public QAbstractTableModel
 {
@@ -24,10 +24,15 @@ class OrdersModel : public QAbstractTableModel
     };
 
     OrdersModel(QObject *parent = 0);
+
+    // todo change this name to addOrderSrv
     void addOrder(const Order &order);
+
+    // todo remove this method, use above instead for adding order form the server
     void addOrder(int o_id, const QString initials, const QString menuItem, const QString price);
     void clearModel();
 
+    // todo change name to addOrderGui
     Q_INVOKABLE void addOrder(const QString initials, const QString menuItem, const QString price);
     Q_INVOKABLE void modifyOrder(const int o_id, const QString initials, const QString menuItem, const QString price);
     Q_INVOKABLE void deleteOrder(const int o_id);
@@ -42,13 +47,13 @@ class OrdersModel : public QAbstractTableModel
     Q_INVOKABLE QVariant getMenuItem(int row) const;
     Q_INVOKABLE QVariant getPrice(int row) const;
 
-    void rpcsend(CliRpcSend *rpc) { m_rpc = rpc; }
+    void rpcsend(RpcSend *rpc) { m_rpc = rpc; }
 
   protected:
     QHash<int, QByteArray> roleNames() const;
 
   private:
-    CliRpcSend *m_rpc;
+    RpcSend *m_rpc;
     QList<Order> m_orders;
 };
 

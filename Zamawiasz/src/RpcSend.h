@@ -5,22 +5,22 @@
 #include "SrvConnection.h"
 
 class SrvConnection;
-class CliRpcReceive;
+class RpcReceive;
 
-class CliRpcSend : public LRpc
+class RpcSend : public LRpc
 {
   public:
-    CliRpcSend();
+    RpcSend();
 
     bool sendMethod(const T_RPCMETHODID methodid, QJsonValue params = 0 );
 
     void conn(SrvConnection * conn) {m_conn = conn;}
-    void rpcrcv(CliRpcReceive * rpcrcv) {m_rpcrcv = rpcrcv;}
+    void rpcrcv(RpcReceive * rpcrcv) {m_rpcrcv = rpcrcv;}
 
   private:
     int m_frameid;
     SrvConnection * m_conn;
-    CliRpcReceive * m_rpcrcv;
+    RpcReceive * m_rpcrcv;
 };
 
 #endif // CLIRPCSEND_H

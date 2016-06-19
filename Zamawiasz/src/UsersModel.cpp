@@ -10,6 +10,10 @@ UsersModel::UsersModel(QObject *parent) :
 {
 }
 
+//**************************************************************************************
+//* clearModel()
+//*
+//**************************************************************************************
 void UsersModel::clearModel()
 {
   m_users.clear();
@@ -18,6 +22,10 @@ void UsersModel::clearModel()
   endResetModel();
 }
 
+//**************************************************************************************
+//* addUser()
+//*
+//**************************************************************************************
 void UsersModel::addUser(const User &user)
 {
   beginInsertRows(QModelIndex(), rowCount(), rowCount());
@@ -25,6 +33,10 @@ void UsersModel::addUser(const User &user)
   endInsertRows();
 }
 
+//**************************************************************************************
+//* addUser()
+//*
+//**************************************************************************************
 void UsersModel::addUser(int u_id, const QString f_name, const QString l_name, const QString initials)
 {
   beginInsertRows(QModelIndex(), rowCount(), rowCount());
@@ -35,6 +47,10 @@ void UsersModel::addUser(int u_id, const QString f_name, const QString l_name, c
   endInsertRows();
 }
 
+//**************************************************************************************
+//* addUser()
+//*
+//**************************************************************************************
 void UsersModel::addUser(const QString f_name, const QString l_name, const QString initials)
 {
   qDebug() << "addUser (QML)";
@@ -53,6 +69,10 @@ void UsersModel::addUser(const QString f_name, const QString l_name, const QStri
   }
 }
 
+//**************************************************************************************
+//* modifyUser()
+//*
+//**************************************************************************************
 void UsersModel::modifyUser(int u_id, const QString f_name, const QString l_name, const QString initials)
 {
   if (u_id < 0 || u_id >= m_users.count())
@@ -67,6 +87,10 @@ void UsersModel::modifyUser(int u_id, const QString f_name, const QString l_name
   emit dataChanged(index(0, 0), index(m_users.count() - 1, 0));
 }
 
+//**************************************************************************************
+//* deleteUser()
+//*
+//**************************************************************************************
 void UsersModel::deleteUser(const int u_id)
 {
   qDebug() << "removeUser (QML): " + QString(u_id);
@@ -90,23 +114,39 @@ void UsersModel::deleteUser(const int u_id)
   }
 }
 
+//**************************************************************************************
+//* listUsers()
+//*
+//**************************************************************************************
 void UsersModel::listUsers()
 {
   m_rpc->sendMethod(M_LIST_USERS);
 }
 
+//**************************************************************************************
+//* rowCount()
+//*
+//**************************************************************************************
 int UsersModel::rowCount(const QModelIndex & parent) const
 {
   Q_UNUSED(parent);
   return m_users.count();
 }
 
+//**************************************************************************************
+//* columnCount()
+//*
+//**************************************************************************************
 int UsersModel::columnCount(const QModelIndex & parent) const
 {
   Q_UNUSED(parent);
   return roleCnt;
 }
 
+//**************************************************************************************
+//* data()
+//*
+//**************************************************************************************
 QVariant UsersModel::data(const QModelIndex & index, int role) const
 {
   if (index.row() < 0 || index.row() >= m_users.count())
@@ -133,6 +173,10 @@ QVariant UsersModel::data(const QModelIndex & index, int role) const
   }
 }
 
+//**************************************************************************************
+//* getFname()
+//*
+//**************************************************************************************
 QVariant UsersModel::getFname(int row) const
 {
   if (row < 0 || row >= m_users.count())
@@ -143,6 +187,10 @@ QVariant UsersModel::getFname(int row) const
   return user.fname();
 }
 
+//**************************************************************************************
+//* getLname()
+//*
+//**************************************************************************************
 QVariant UsersModel::getLname(int row) const
 {
   if (row < 0 || row >= m_users.count())
@@ -153,6 +201,10 @@ QVariant UsersModel::getLname(int row) const
   return user.lname();
 }
 
+//**************************************************************************************
+//* getInitials()
+//*
+//**************************************************************************************
 QVariant UsersModel::getInitials(int row) const
 {
   if (row < 0 || row >= m_users.count())
@@ -163,6 +215,10 @@ QVariant UsersModel::getInitials(int row) const
   return user.initials();
 }
 
+//**************************************************************************************
+//* getId()
+//*
+//**************************************************************************************
 QVariant UsersModel::getId(int row) const
 {
   if (row < 0 || row >= m_users.count())
@@ -173,6 +229,10 @@ QVariant UsersModel::getId(int row) const
   return user.u_id();
 }
 
+//**************************************************************************************
+//* roleNames()
+//*
+//**************************************************************************************
 QHash<int, QByteArray> UsersModel::roleNames() const
 {
   QHash<int, QByteArray> roles;

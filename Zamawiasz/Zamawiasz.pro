@@ -7,11 +7,11 @@ CONFIG += c++11
 SOURCES += main.cpp \
     src/Lrpc.cpp \
     src/LRpcMethod.cpp \
-    src/CliRpcReceive.cpp \
-    src/CliRpcSend.cpp \
     src/UsersModel.cpp \
     src/SrvConnection.cpp \
-    src/OrdersModel.cpp
+    src/OrdersModel.cpp \
+    src/RpcReceive.cpp \
+    src/RpcSend.cpp
 
 RESOURCES += qml.qrc
 
@@ -24,13 +24,13 @@ include(deployment.pri)
 HEADERS += \
     src/Lrpc.h \
     src/LRpcMethod.h \
-    src/CliRpcReceive.h \
-    src/CliRpcSend.h \
     src/UsersModel.h \
     src/User.h \
     src/SrvConnection.h \
     src/OrdersModel.h \
-    src/Order.h
+    src/Order.h \
+    src/RpcReceive.h \
+    src/RpcSend.h
 
 
 RC_ICONS = zamawiasz.ico

@@ -9,8 +9,8 @@
 #include "src/Order.h"
 #include "src/UsersModel.h"
 #include "src/User.h"
-#include "src/CliRpcReceive.h"
-#include "src/CliRpcSend.h"
+#include "src/RpcReceive.h"
+#include "src/RpcSend.h"
 
 int main(int argc, char *argv[])
 {
@@ -18,8 +18,8 @@ int main(int argc, char *argv[])
 
   QGuiApplication app(argc, argv);
 
-  CliRpcSend rpcsend;
-  CliRpcReceive rpcrecv;
+  RpcSend rpcsend;
+  RpcReceive rpcrecv;
   OrdersModel omodel;
   UsersModel umodel;
 

@@ -19,7 +19,9 @@ LRpc::LRpc(const char *file_name)
   file.close();
 
   QJsonDocument jsonDoc = QJsonDocument::fromJson(file_data);
-  this->rpcObj = jsonDoc.object();
+
+  // todo this could be done as static field
+  m_rpcObj = jsonDoc.object();
 }
 
 //**************************************************************************************
@@ -28,7 +30,7 @@ LRpc::LRpc(const char *file_name)
 //**************************************************************************************
 QJsonObject LRpc::getErrorObj(const char *err_name)
 {
-  QJsonObject::const_iterator i_error = this->rpcObj.find(err_name);
+  QJsonObject::const_iterator i_error = m_rpcObj.find(err_name);
   return i_error.value().toObject();
 }
 
@@ -42,12 +44,12 @@ QJsonObject LRpc::getResultObj(const QString & res_name)
 
   QJsonObject result;
 
-  QJsonObject::const_iterator i_method = this->rpcObj.find(res_name);
+  QJsonObject::const_iterator i_method = m_rpcObj.find(res_name);
 
-  if (i_method == this->rpcObj.end())
+  if (i_method == m_rpcObj.end())
   {
     qDebug() << "getResultObj error e_32601";
-    result = this->getErrorObj("e_32601");
+    result = getErrorObj("e_32601");
   }
   else
   {
@@ -100,12 +102,12 @@ QJsonObject LRpc::getResultObj(const LRpcMethod &lrpcMeth)
 
   QJsonObject result;
 
-  QJsonObject::const_iterator i_method = this->rpcObj.find(lrpcMeth.getNameObj());
+  QJsonObject::const_iterator i_method = m_rpcObj.find(lrpcMeth.getNameObj());
 
-  if (i_method == this->rpcObj.end())
+  if (i_method == m_rpcObj.end())
   {
     qDebug() << "getResultObj error e_32601";
-    result = this->getErrorObj("e_32601");
+    result = getErrorObj("e_32601");
   }
   else
   {
@@ -122,7 +124,7 @@ QJsonObject LRpc::getResultObj(const LRpcMethod &lrpcMeth)
 QJsonObject LRpc::getMethodObj(const T_RPCMETHODID methodid)
 {
   LRpcMethod rmethod = methodid;
-  QJsonObject::const_iterator i_method = this->rpcObj.find(rmethod.getNameObj());
+  QJsonObject::const_iterator i_method = m_rpcObj.find(rmethod.getNameObj());
   QJsonObject methodobj = i_method.value().toObject();
   return methodobj;
 }
@@ -135,9 +137,9 @@ QJsonValue LRpc::getResultValue(const QString & res_name)
 {
   //TODO throw exceptions
 
-  QJsonObject::const_iterator i_method = this->rpcObj.find(res_name);
+  QJsonObject::const_iterator i_method = m_rpcObj.find(res_name);
 
-  if (i_method == this->rpcObj.end())
+  if (i_method == m_rpcObj.end())
   {
     qDebug() << "getResultValue OBJ parse error";
     throw "parse error";
@@ -184,7 +186,7 @@ QJsonObject LRpc::getParams(const T_RPCMETHODID methodid)
 
   LRpcMethod method = methodid;
 
-  QJsonObject::const_iterator i_method = this->rpcObj.find(method.getNameObj());
+  QJsonObject::const_iterator i_method = m_rpcObj.find(method.getNameObj());
 
   QJsonObject jmethod = i_method.value().toObject();
   QJsonObject::const_iterator i_params = jmethod.find("params");

@@ -5,9 +5,9 @@
 #include <QStringList>
 
 #include "User.h"
-#include "CliRpcSend.h"
+#include "RpcSend.h"
 
-class CliRpcSend;
+class RpcSend;
 
 class UsersModel : public QAbstractTableModel
 {
@@ -42,13 +42,13 @@ class UsersModel : public QAbstractTableModel
     Q_INVOKABLE QVariant getLname(int row) const;
     Q_INVOKABLE QVariant getInitials(int row) const;
 
-    void rpcsend(CliRpcSend *rpc) { m_rpc = rpc; }
+    void rpcsend(RpcSend *rpc) { m_rpc = rpc; }
 
   protected:
     QHash<int, QByteArray> roleNames() const;
 
   private:
-    CliRpcSend *m_rpc;
+    RpcSend *m_rpc;
     QList<User> m_users;
 };
 

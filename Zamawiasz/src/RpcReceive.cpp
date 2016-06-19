@@ -1,10 +1,10 @@
-#include "CliRpcReceive.h"
+#include "RpcReceive.h"
 
 //**************************************************************************************
 //* constructor()
 //*
 //**************************************************************************************
-CliRpcReceive::CliRpcReceive() :
+RpcReceive::RpcReceive() :
   LRpc("../json/lunch_prot.json"),
   m_lastrequest(LRPC_MAX),
   m_om(nullptr)
@@ -16,8 +16,10 @@ CliRpcReceive::CliRpcReceive() :
 //* readResponse()
 //*
 //**************************************************************************************
-void CliRpcReceive::readResponse(QByteArray inData)
+void RpcReceive::readResponse(QByteArray inData)
 {
+  //TODO data models could be interfaced with this module
+
   qDebug() << "New response received.";
 
   QJsonParseError parseError;

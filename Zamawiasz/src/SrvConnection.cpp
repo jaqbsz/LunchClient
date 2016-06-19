@@ -7,8 +7,8 @@
 //**************************************************************************************
 SrvConnection::SrvConnection(const QObject * qmlObjSettings, QObject *parent) :
     QObject(parent),
-    qmlObjSettings(qmlObjSettings),
-    m_state(UNKNOWN),
+    m_qmlObjSettings(qmlObjSettings),
+    m_state(SrvConnection::ConnState::UNKNOWN),
     m_rpcrecv(nullptr)
 {
 }
@@ -36,10 +36,10 @@ void SrvConnection::doConnect(QString hostname, int portnr)
   if(!m_socket->waitForConnected(1000))
   {
     qDebug() << "Error: " << m_socket->errorString();
-    m_state = DISCONNECTED;
+    m_state = SrvConnection::ConnState::DISCONNECTED;
   }
   else
-    m_state = CONNECTED;
+    m_state = SrvConnection::ConnState::CONNECTED;
 }
 
 //**************************************************************************************
@@ -49,7 +49,7 @@ void SrvConnection::doConnect(QString hostname, int portnr)
 void SrvConnection::connected()
 {
   qDebug() << "connected...";
-  emit this->qmlConnected(true);
+  emit qmlConnected(true);
 }
 
 //**************************************************************************************
@@ -59,7 +59,7 @@ void SrvConnection::connected()
 void SrvConnection::disconnected()
 {
   qDebug() << "disconnected...";
-  emit this->qmlConnected(false);
+  emit qmlConnected(false);
 }
 
 //**************************************************************************************
@@ -99,7 +99,7 @@ bool SrvConnection::sendData(const QByteArray &outData)
 
   qDebug() << "Sending... ";
 
-  if ( m_state == CONNECTED )
+  if ( m_state == SrvConnection::ConnState::CONNECTED )
   {
     m_socket->write(outData);
     m_socket->flush();
@@ -119,10 +119,10 @@ void SrvConnection::qmlConnect()
 {
   qDebug() << "QmlConnect...";
 
-  QString hostname = this->qmlObjSettings->property("hostname").toString();
-  int portnr = this->qmlObjSettings->property("portnr").toInt();
+  QString hostname = m_qmlObjSettings->property("hostname").toString();
+  int portnr = m_qmlObjSettings->property("portnr").toInt();
 
-  this->doConnect(hostname, portnr);
+  doConnect(hostname, portnr);
 }
 
 //**************************************************************************************
